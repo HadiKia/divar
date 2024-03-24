@@ -1,7 +1,9 @@
+import AuthPage from "./pages/AuthPage";
+
 function App() {
   return (
     <>
-      <h1>دیوار</h1>
+      <AuthPage />
     </>
   );
 }
