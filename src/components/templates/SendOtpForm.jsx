@@ -1,7 +1,21 @@
+import { useState } from "react";
+import { sendOtp } from "../../services/auth";
+import ReactLoading from "react-loading";
+
 function SendOtpForm({ setStep, mobile, setMobile }) {
-  const submitHandler = (event) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const submitHandler = async (event) => {
     event.preventDefault();
-    console.log("send");
+
+    if (mobile.length !== 11) return;
+    setIsLoading(true);
+    const { response, error } = await sendOtp(mobile);
+
+    if (response) setStep(2);
+    if (error) console.log(error.response.data.message);
+    setIsLoading(false);
+    console.log(response, error);
   };
 
   return (
@@ -24,7 +38,13 @@ function SendOtpForm({ setStep, mobile, setMobile }) {
 
       <span>شرایط استفاده از خدمات و حریم خصوصی دیوار را می‌پذیرم.</span>
 
-      <button type="submit">تأیید</button>
+      <button type="submit">
+        {isLoading ? (
+          <ReactLoading type="bubbles" color="#A62626" height={20} width={25} />
+        ) : (
+          "تأیید"
+        )}
+      </button>
     </form>
   );
 }
