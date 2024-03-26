@@ -12,7 +12,14 @@ function AuthPage() {
       {step === 1 && (
         <SendOtpForm setStep={setStep} mobile={mobile} setMobile={setMobile} />
       )}
-      {step === 2 && <CheckOtpForm />}
+      {step === 2 && (
+        <CheckOtpForm
+          setStep={setStep}
+          code={code}
+          setCode={setCode}
+          mobile={mobile}
+        />
+      )}
     </div>
   );
 }

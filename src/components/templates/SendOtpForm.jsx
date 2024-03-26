@@ -22,7 +22,7 @@ function SendOtpForm({ setStep, mobile, setMobile }) {
     <form onSubmit={submitHandler}>
       <p>ورود به حساب کاربری</p>
 
-      <p>شماره موبایل خود را وارد کنید</p>
+      <p>شمارهٔ موبایل خود را وارد کنید</p>
 
       <span>
         برای استفاده از امکانات دیوار، لطفاً شمارهٔ موبایل خود را وارد کنید. کد
