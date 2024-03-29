@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { sendOtp } from "../../services/auth";
+import { sendOtp } from "services/auth";
 import ReactLoading from "react-loading";
 
 function SendOtpForm({ setStep, mobile, setMobile }) {
