@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "services/user";
+import ReactLoading from "react-loading";
 
 import AuthPage from "pages/AuthPage";
 import HomePage from "pages/HomePage";
@@ -10,7 +11,12 @@ import PageNotFound from "pages/404";
 
 function Router() {
   const { data, isLoading, isError } = useQuery(["profile"], getProfile);
-  console.log({ data, isLoading, isError });
+  // console.log({ data, isLoading, isError });
+
+  if (isLoading)
+    return (
+      <ReactLoading type="spinningBubbles" color="#A62626" height={40} width={40} />
+    );
 
   return (
     <Routes>
