@@ -11,11 +11,16 @@ import PageNotFound from "pages/404";
 
 function Router() {
   const { data, isLoading, isError } = useQuery(["profile"], getProfile);
-  // console.log({ data, isLoading, isError });
+  console.log({ data, isLoading, isError });
 
   if (isLoading)
     return (
-      <ReactLoading type="spinningBubbles" color="#A62626" height={40} width={40} />
+      <ReactLoading
+        type="spinningBubbles"
+        color="#A62626"
+        height={40}
+        width={40}
+      />
     );
 
   return (
