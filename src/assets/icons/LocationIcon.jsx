@@ -1,6 +1,6 @@
 function LocationIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" className="scale-[0.8]">
       <path
         fill="currentColor"
         d="M12 14.17c-2.13 0-3.87-1.73-3.87-3.87S9.87 6.44 12 6.44s3.87 1.73 3.87 3.87-1.74 3.86-3.87 3.86Zm0-6.23c-1.3 0-2.37 1.06-2.37 2.37s1.06 2.37 2.37 2.37 2.37-1.06 2.37-2.37S13.3 7.94 12 7.94Z"
