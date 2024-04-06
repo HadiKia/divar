@@ -2,12 +2,16 @@ import { Link } from "react-router-dom";
 import DivarIcon from "assets/icons/DivarIcon";
 import LocationIcon from "assets/icons/LocationIcon";
 import UserIcon from "assets/icons/UserIcon";
+import SearchIcon from "assets/icons/SearchIcon";
 
 // styles
 import {
   buttonsDivStyle,
   dashboardButtonStyle,
+  borderStyle,
   locationStyle,
+  searchBoxStyle,
+  inputStyle,
   loginButtonStyle,
   logoDivStyle,
   logoStyle,
@@ -22,10 +26,20 @@ function Header() {
           <Link to="/" className={logoStyle}>
             <DivarIcon />
           </Link>
+          <span className={borderStyle}></span>
           <span className={locationStyle}>
             <LocationIcon />
             <p>تهران</p>
           </span>
+
+          <div className={searchBoxStyle}>
+            <SearchIcon />
+            <input
+              type="text"
+              placeholder="جستجو در همهٔ آگهی‌ها"
+              className={inputStyle}
+            />
+          </div>
         </div>
 
         <div className={buttonsDivStyle}>
@@ -35,7 +49,6 @@ function Header() {
               <p>دیوار من</p>
             </span>
           </Link>
-
           <Link to="/dashboard" className={dashboardButtonStyle}>
             ثبت آگهی
           </Link>
