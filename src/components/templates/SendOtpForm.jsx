@@ -1,8 +1,23 @@
 import { useState } from "react";
 import { sendOtp } from "services/auth";
 import ReactLoading from "react-loading";
+import CloseIcon from "assets/icons/CloseIcon";
 
-function SendOtpForm({ setStep, mobile, setMobile }) {
+// styles
+import {
+  titleDivStyle,
+  modalTitleStyle,
+  authTitleStyle,
+  authContentMessageStyle,
+  inputBoxStyle,
+  inputStyle,
+  inputBoxSpanStyle,
+  authContentMessage2Style,
+  modalActionDivStyle,
+  submitButtonStyle,
+} from "styles/Send&CheckOtpFormStyle";
+
+function SendOtpForm({ setStep, mobile, setMobile, closeModal, setIsActive }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const submitHandler = async (event) => {
@@ -19,32 +34,57 @@ function SendOtpForm({ setStep, mobile, setMobile }) {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <p>ورود به حساب کاربری</p>
+    <form onSubmit={submitHandler} className="h-screen md:h-[458px]">
+      <div className={titleDivStyle}>
+        <p className={modalTitleStyle}>ورود به حساب کاربری</p>
+        <span
+          onClick={() => {
+            closeModal();
+            setIsActive("");
+          }}
+        >
+          <CloseIcon />
+        </span>
+      </div>
 
-      <p>شمارهٔ موبایل خود را وارد کنید</p>
+      <p className={authTitleStyle}>شمارهٔ موبایل خود را وارد کنید</p>
 
-      <span>
+      <p className={authContentMessageStyle}>
         برای استفاده از امکانات دیوار، لطفاً شمارهٔ موبایل خود را وارد کنید. کد
         تأیید به این شماره پیامک خواهد شد.
-      </span>
+      </p>
 
-      <input
-        type="text"
-        placeholder="شماره موبایل"
-        value={mobile}
-        onChange={(e) => setMobile(e.target.value)}
-      />
+      <div className={inputBoxStyle}>
+        <input
+          type="text"
+          placeholder="شمارهٔ موبایل"
+          value={mobile}
+          onChange={(e) => setMobile(e.target.value)}
+          className={inputStyle}
+        />
+        <span className={inputBoxSpanStyle}>۹۸+</span>
+      </div>
 
-      <span>شرایط استفاده از خدمات و حریم خصوصی دیوار را می‌پذیرم.</span>
+      <p className={authContentMessage2Style}>
+        <span className="text-primary">شرایط استفاده از خدمات</span> و{" "}
+        <span className="text-primary">حریم خصوصی</span> دیوار را می‌پذیرم.
+      </p>
 
-      <button type="submit">
-        {isLoading ? (
-          <ReactLoading type="bubbles" color="#A62626" height={20} width={25} />
-        ) : (
-          "تأیید"
-        )}
-      </button>
+      <div className={modalActionDivStyle}>
+        <button type="submit" className={submitButtonStyle}>
+          {isLoading ? (
+            <ReactLoading
+              type="bubbles"
+              color="#fff"
+              height={20}
+              width={25}
+              className="mb-1.5"
+            />
+          ) : (
+            "تأیید"
+          )}
+        </button>
+      </div>
     </form>
   );
 }

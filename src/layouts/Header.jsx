@@ -1,4 +1,9 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getProfile } from "services/user";
+import { useQuery } from "@tanstack/react-query";
+
+// icons
 import DivarIcon from "assets/icons/DivarIcon";
 import LocationIcon from "assets/icons/LocationIcon";
 import UserIcon from "assets/icons/UserIcon";
@@ -17,8 +22,16 @@ import {
   logoStyle,
   navbarStyle,
 } from "styles/headerStyle";
+import AuthModal from "components/AuthModal";
 
 function Header() {
+  const { data } = useQuery(["profile"], getProfile);
+  const navigate = useNavigate();
+
+  const [isOpen, setIsOpen] = useState(false);
+  const closeModal = () => setIsOpen(false);
+  const openModal = () => setIsOpen(true);
+
   return (
     <header className="shadow">
       <div className={navbarStyle}>
@@ -43,16 +56,21 @@ function Header() {
         </div>
 
         <div className={buttonsDivStyle}>
-          <Link to="/auth">
+          <button onClick={() => (data ? navigate("/dashboard") : openModal())}>
             <span className={loginButtonStyle}>
               <UserIcon />
               <p>دیوار من</p>
             </span>
-          </Link>
-          <Link to="/dashboard" className={dashboardButtonStyle}>
+          </button>
+          <button
+            onClick={() => (data ? navigate("/dashboard") : openModal())}
+            className={dashboardButtonStyle}
+          >
             ثبت آگهی
-          </Link>
+          </button>
         </div>
+
+        <AuthModal isOpen={isOpen} closeModal={closeModal} />
       </div>
     </header>
   );

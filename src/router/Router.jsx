@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "services/user";
 import ReactLoading from "react-loading";
 
-import AuthPage from "pages/AuthPage";
 import HomePage from "pages/HomePage";
 import DashboardPage from "pages/DashboardPage";
 import AdminPage from "pages/AdminPage";
@@ -28,11 +27,7 @@ function Router() {
       <Route index element={<HomePage />} />
       <Route
         path="/dashboard"
-        element={data ? <DashboardPage /> : <Navigate to="/auth" />}
-      />
-      <Route
-        path="/auth"
-        element={data ? <Navigate to="/dashboard" /> : <AuthPage />}
+        element={data ? <DashboardPage /> : <Navigate to="/" />}
       />
       <Route
         path="/admin"
