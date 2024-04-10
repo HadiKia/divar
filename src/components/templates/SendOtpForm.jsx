@@ -42,6 +42,7 @@ function SendOtpForm({ setStep, mobile, setMobile, closeModal, setIsActive }) {
             closeModal();
             setIsActive("");
           }}
+          className="text-secondary"
         >
           <CloseIcon />
         </span>

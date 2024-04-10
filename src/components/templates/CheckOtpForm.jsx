@@ -51,6 +51,7 @@ function CheckOtpForm({
             closeModal();
             setIsActive("");
           }}
+          className="text-secondary"
         >
           <CloseIcon />
         </span>

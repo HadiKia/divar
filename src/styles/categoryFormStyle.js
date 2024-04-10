@@ -1,4 +1,4 @@
-const formStyle = "md:max-w-sm";
+const formStyle = "flex-1 md:max-w-sm lg:max-w-md xl:max-w-lg";
 const h3Style =
   "font-medium text-lg pb-2 mb-8 border-b-2 border-primary w-fit text-dark";
 const inputBoxStyle = "relative mb-5";
