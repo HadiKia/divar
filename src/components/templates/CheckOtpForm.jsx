@@ -68,6 +68,7 @@ function CheckOtpForm({
           value={code}
           autoFocus
           onChange={(e) => setCode(e.target.value)}
+          className="mb-3"
         />
       </div>
 
