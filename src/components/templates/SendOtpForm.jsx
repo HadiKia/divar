@@ -10,7 +10,6 @@ import {
   authTitleStyle,
   authContentMessageStyle,
   inputBoxStyle,
-  inputStyle,
   inputBoxSpanStyle,
   authContentMessage2Style,
   modalActionDivStyle,
@@ -57,11 +56,11 @@ function SendOtpForm({ setStep, mobile, setMobile, closeModal, setIsActive }) {
 
       <div className={inputBoxStyle}>
         <input
-          type="text"
+          type="number"
           placeholder="شمارهٔ موبایل"
           value={mobile}
           onChange={(e) => setMobile(e.target.value)}
-          className={inputStyle}
+          className="pl-14 mb-5"
         />
         <span className={inputBoxSpanStyle}>۹۸+</span>
       </div>

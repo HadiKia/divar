@@ -5,7 +5,7 @@ function SearchIcon() {
       width="24"
       height="24"
       fill="none"
-      className="scale-[0.8]"
+      className="scale-[0.8] mb-0.5"
     >
       <path
         fill="currentColor"

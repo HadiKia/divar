@@ -2,8 +2,6 @@ const formStyle = "flex-1 md:max-w-sm lg:max-w-md xl:max-w-lg";
 const h3Style =
   "font-medium text-lg pb-2 mb-8 border-b-2 border-primary w-fit text-dark";
 const inputBoxStyle = "relative mb-5";
-const inputStyle =
-  "peer w-full border-b placeholder:text-transparent h-10 outline-none text-sm border border-secondary border-opacity-40 rounded px-4 focus:border-primary duration-200 ease-linear";
 const labelStyle =
   "absolute right-0 mr-2 -translate-y-2 bg-white text-xs px-1 text-secondary duration-200 ease-linear peer-placeholder-shown:translate-y-2 peer-placeholder-shown:text-sm peer-focus:mr-2 peer-focus:-translate-y-2 peer-focus:px-1 peer-focus:text-xs";
 const buttonDivStyle = "flex justify-center md:justify-end";
@@ -14,7 +12,6 @@ export {
   formStyle,
   h3Style,
   inputBoxStyle,
-  inputStyle,
   labelStyle,
   buttonDivStyle,
   formButtonStyle,

@@ -10,7 +10,6 @@ import {
   authTitleStyle,
   changeNumberButtonStyle,
   changeNumberDivButtonStyle,
-  checkOtpInputStyle,
   modalActionDivStyle,
   modalTitleStyle,
   submitButtonStyle,
@@ -64,11 +63,11 @@ function CheckOtpForm({
       </p>
       <div className="mx-4 md:mx-8">
         <input
-          type="text"
+          type="number"
           placeholder="کد تأیید ۶ رقمی"
           value={code}
+          autoFocus
           onChange={(e) => setCode(e.target.value)}
-          className={checkOtpInputStyle}
         />
       </div>
 

@@ -16,7 +16,6 @@ import {
   borderStyle,
   locationStyle,
   searchBoxStyle,
-  inputStyle,
   loginButtonStyle,
   logoDivStyle,
   logoStyle,
@@ -47,11 +46,7 @@ function Header() {
 
           <div className={searchBoxStyle}>
             <SearchIcon />
-            <input
-              type="text"
-              placeholder="جستجو در همهٔ آگهی‌ها"
-              className={inputStyle}
-            />
+            <input type="search" placeholder="جستجو در همهٔ آگهی‌ها" />
           </div>
         </div>
 

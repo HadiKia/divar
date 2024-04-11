@@ -8,7 +8,6 @@ import {
   formStyle,
   h3Style,
   inputBoxStyle,
-  inputStyle,
   labelStyle,
   buttonDivStyle,
   formButtonStyle,
@@ -47,7 +46,7 @@ function CategoryForm() {
           type="text"
           name="name"
           id="name"
-          className={inputStyle}
+          className="peer"
           placeholder="name"
         />
         <label htmlFor="name" className={labelStyle}>
@@ -60,7 +59,7 @@ function CategoryForm() {
           type="text"
           name="slug"
           id="slug"
-          className={inputStyle}
+          className="peer"
           placeholder="slug"
         />
         <label htmlFor="slug" className={labelStyle}>
@@ -73,7 +72,7 @@ function CategoryForm() {
           type="text"
           name="icon"
           id="icon"
-          className={inputStyle}
+          className="peer"
           placeholder="icon"
         />
         <label htmlFor="icon" className={labelStyle}>

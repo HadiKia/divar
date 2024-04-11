@@ -3,6 +3,49 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
+  [multiple],
+  textarea,
+  select {
+    @apply w-full border-b placeholder:text-transparent h-10 outline-none text-sm border border-secondary border-opacity-40 rounded px-4  focus:border-primary duration-200 ease-linear focus:ring-0;
+  }
+  [type="search"] {
+    @apply bg-transparent w-full outline-none text-dark border-none focus:ring-0 p-0;
+  }
+  [type="number"] {
+    @apply w-full border-b h-10 outline-none text-sm border border-secondary border-opacity-40 rounded px-4 focus:border-primary duration-200 ease-linear focus:ring-0 mb-3 placeholder:text-right text-left placeholder:opacity-90;
+  }
+
+  [type="checkbox"],
+  [type="radio"] {
+    @apply border-secondary border-opacity-50 focus:ring-0 rounded text-primary focus:ring-offset-0 cursor-pointer;
+  }
+}
+
 * {
   font-family: vazir;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+::-webkit-search-cancel-button {
+  display: none;
 }
