@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { getCategory } from "services/admin";
 
 // styles
@@ -12,14 +13,31 @@ import {
 } from "styles/categoryFormStyle";
 
 function AddPost() {
+  const [form, setForm] = useState({
+    title: "",
+    content: "",
+    amount: null,
+    city: "",
+    category: "",
+    images: null,
+  });
   const { data } = useQuery(["get-categories"], getCategory);
+
+  const changeHandler = (event) => {
+    const name = event.target.name;
+    if (name !== "images") {
+      setForm({ ...form, [name]: event.target.value });
+    } else {
+      setForm({ ...form, [name]: event.target.files[0] });
+    }
+  };
 
   const addHandler = (event) => {
     event.preventDefault();
-    console.log("send");
+    console.log(form);
   };
   return (
-    <form className={formStyle}>
+    <form onChange={changeHandler} className={formStyle}>
       <h3 className={h3Style}>افزودن آگهی</h3>
 
       <div className={inputBoxStyle}>
@@ -97,12 +115,12 @@ function AddPost() {
       <div className={inputBoxStyle}>
         <input
           type="file"
-          name="image"
-          id="image"
+          name="images"
+          id="images"
           className="peer"
           placeholder="عکس خود را بارگزاری کنید"
         />
-        <label htmlFor="image" className={labelStyle}>
+        <label htmlFor="images" className={labelStyle}>
           عکس
         </label>
       </div>
