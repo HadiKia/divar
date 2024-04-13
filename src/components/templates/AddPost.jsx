@@ -1,6 +1,16 @@
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import { getCategory } from "services/admin";
+
+import { Listbox } from "@headlessui/react";
+
+// icons
+import CarIcon from "assets/icons/CarIcon";
+import DigitalIcon from "assets/icons/DigitalIcon";
+import GameIcon from "assets/icons/GameIcon";
+import HomeIcon from "assets/icons/HomeIcon";
+import PersonalIcon from "assets/icons/PersonalIcon";
+import ServiceIcon from "assets/icons/ServiceIcon";
 
 // styles
 import {
@@ -11,6 +21,15 @@ import {
   inputBoxStyle,
   labelStyle,
 } from "styles/categoryFormStyle";
+import {
+  listBoxButtonStyle,
+  listBoxOptionsStyle,
+  listBoxOptionStyle,
+  listBoxOptionActiveStyle,
+  inputFileBoxStyle,
+  inputFileStyle,
+  inputFileNameStyle,
+} from "styles/addPostStyle";
 
 function AddPost() {
   const [form, setForm] = useState({
@@ -22,13 +41,23 @@ function AddPost() {
     images: null,
   });
   const { data } = useQuery(["get-categories"], getCategory);
+  const [category, setCategory] = useState("");
+  const [imageLabel, setImageLabel] = useState("عکس خود را بارگزاری کنید");
+
+  useEffect(() => {
+    if (data) setCategory(data.data[0]);
+  }, []);
 
   const changeHandler = (event) => {
     const name = event.target.name;
     if (name !== "images") {
       setForm({ ...form, [name]: event.target.value });
     } else {
-      setForm({ ...form, [name]: event.target.files[0] });
+      const file = event.target.files[0];
+      if (file) {
+        setForm({ ...form, [name]: file });
+        setImageLabel(file.name);
+      }
     }
   };
 
@@ -93,33 +122,58 @@ function AddPost() {
       </div>
 
       <div className={inputBoxStyle}>
-        <select
-          type="text"
-          name="category"
-          id="category"
-          className="peer appearance-none"
-          placeholder=""
-        >
-          {data?.data.map((item) => (
-            <option key={item._id} value={item._id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-
-        <label htmlFor="category" className={labelStyle}>
-          دسته بندی
-        </label>
+        <label className={labelStyle}>دسته بندی</label>
+        <Listbox value={category} onChange={setCategory}>
+          <Listbox.Button className={listBoxButtonStyle}>
+            <span className="pb-1 scale-[0.8]">
+              {renderIcon(category.icon)}
+            </span>
+            {category.name}
+          </Listbox.Button>
+          <Listbox.Options className={listBoxOptionsStyle}>
+            {data?.data.map((item) => (
+              <Listbox.Option
+                key={item._id}
+                value={item}
+                className={({ active }) =>
+                  `${listBoxOptionStyle} ${
+                    active ? listBoxOptionActiveStyle : null
+                  }`
+                }
+              >
+                {({ selected }) => (
+                  <>
+                    <span
+                      className={`scale-[0.8] ${
+                        selected ? "text-primary" : ""
+                      }`}
+                    >
+                      {renderIcon(item.icon)}
+                    </span>
+                    <span
+                      className={`block truncate pt-0.5 ${
+                        selected ? "text-primary" : ""
+                      }`}
+                    >
+                      {item.name}
+                    </span>
+                  </>
+                )}
+              </Listbox.Option>
+            ))}
+          </Listbox.Options>
+        </Listbox>
       </div>
 
-      <div className={inputBoxStyle}>
+      <div className={inputFileBoxStyle}>
         <input
           type="file"
           name="images"
           id="images"
-          className="peer"
-          placeholder="عکس خود را بارگزاری کنید"
+          className={inputFileStyle}
+          accept=".jpeg, .jpg, .png, .webp, .svg"
         />
+        <span className={inputFileNameStyle}>{imageLabel}</span>
         <label htmlFor="images" className={labelStyle}>
           عکس
         </label>
@@ -135,3 +189,22 @@ function AddPost() {
 }
 
 export default AddPost;
+
+function renderIcon(iconName) {
+  switch (iconName) {
+    case "home":
+      return <HomeIcon />;
+    case "car":
+      return <CarIcon />;
+    case "digital":
+      return <DigitalIcon />;
+    case "service":
+      return <ServiceIcon />;
+    case "game":
+      return <GameIcon />;
+    case "personal":
+      return <PersonalIcon />;
+    default:
+      return null;
+  }
+}
