@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { getCategory } from "services/admin";
+import { getCookie } from "utils/cookie";
 
 import { Listbox } from "@headlessui/react";
 
@@ -63,7 +65,27 @@ function AddPost() {
 
   const addHandler = (event) => {
     event.preventDefault();
-    console.log(form);
+
+    const formData = new FormData();
+    for (let i in form) {
+      if (i === "category") {
+        formData.append("category", category._id);
+      } else {
+        formData.append(i, form[i]);
+      }
+    }
+
+    const token = getCookie("accessToken");
+
+    axios
+      .post(`${import.meta.env.VITE_BASE_URL}post/create`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `bearer ${token}`,
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
   };
   return (
     <form onChange={changeHandler} className={formStyle}>
