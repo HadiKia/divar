@@ -5,6 +5,7 @@ import { getCategory } from "services/admin";
 import { getCookie } from "utils/cookie";
 
 import { Listbox } from "@headlessui/react";
+import toast, { Toaster } from "react-hot-toast";
 
 // icons
 import CarIcon from "assets/icons/CarIcon";
@@ -32,6 +33,7 @@ import {
   inputFileStyle,
   inputFileNameStyle,
 } from "styles/addPostStyle";
+import ToasterComponent from "components/Toaster";
 
 function AddPost() {
   const [form, setForm] = useState({
@@ -84,8 +86,10 @@ function AddPost() {
           Authorization: `bearer ${token}`,
         },
       })
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error));
+      .then((res) => {
+        toast.success(res.data.message);
+      })
+      .catch(() => toast.error("لطفا فرم را تکمیل کنید"));
   };
   return (
     <form onChange={changeHandler} className={formStyle}>

@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { checkOtp } from "services/auth";
 import { getProfile } from "services/user";
 import { setCookie } from "utils/cookie";
+import toast from "react-hot-toast";
+
 import CloseIcon from "assets/icons/CloseIcon";
 
 // styles
@@ -33,12 +35,13 @@ function CheckOtpForm({
     const { response, error } = await checkOtp(mobile, code);
 
     if (response) {
+      toast.success("خوش آمدید");
       setCookie(response.data);
       refetch();
       closeModal();
       setIsActive("");
     }
-    if (error) console.log(error.response.data.message);
+    if (error) toast.error("مشکلی پیش آمده است");
   };
 
   return (

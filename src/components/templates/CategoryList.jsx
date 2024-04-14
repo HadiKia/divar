@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategory, deleteCategory } from "services/admin";
 import ReactLoading from "react-loading";
+import toast from "react-hot-toast";
 
 // icons
 import HomeIcon from "assets/icons/HomeIcon";
@@ -28,7 +29,10 @@ function CategoryList() {
   const { data, isFetching } = useQuery(["get-categories"], getCategory);
 
   const { mutate, isLoading, error } = useMutation(deleteCategory, {
-    onSuccess: () => queryClient.invalidateQueries("get-categories"),
+    onSuccess: () => {
+      queryClient.invalidateQueries("get-categories");
+      toast.success("دسته بندی با موفقیت حذف شد");
+    },
   });
 
   const handleDelete = (categoryId) => {

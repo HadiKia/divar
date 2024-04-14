@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addCategory } from "services/admin";
 import ReactLoading from "react-loading";
-
+import toast from "react-hot-toast";
+import ToasterComponent from "components/Toaster";
 // styles
 import {
   formStyle,
@@ -17,10 +18,12 @@ function CategoryForm() {
   const queryClient = useQueryClient();
   const [form, setForm] = useState({ name: "", slug: "", icon: "" });
 
-  const { mutate, isLoading, error, data } = useMutation(addCategory, {
-    onSuccess: () => queryClient.invalidateQueries("get-categories"),
+  const { mutate, isLoading, error } = useMutation(addCategory, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("get-categories");
+      toast.success("دسته بندی با موفقیت افزوده شد");
+    },
   });
-  console.log({ isLoading, error, data });
 
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -96,9 +99,6 @@ function CategoryForm() {
         </button>
       </div>
 
-      {data?.status === 201 && (
-        <p className="bg-primary text-white">دسته بندی با موفقیت اضافه شد</p>
-      )}
       {!!error && <p className="bg-primary text-white">مشکلی پیش آمده است</p>}
     </form>
   );

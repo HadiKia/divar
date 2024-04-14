@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { sendOtp } from "services/auth";
 import ReactLoading from "react-loading";
+import toast from "react-hot-toast";
+
 import CloseIcon from "assets/icons/CloseIcon";
 
 // styles
@@ -27,9 +29,8 @@ function SendOtpForm({ setStep, mobile, setMobile, closeModal, setIsActive }) {
     const { response, error } = await sendOtp(mobile);
 
     if (response) setStep(2);
-    if (error) console.log(error.response.data.message);
+    if (error) toast.error("مشکلی پیش آمده است");
     setIsLoading(false);
-    console.log(response, error);
   };
 
   return (
