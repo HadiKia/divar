@@ -1,19 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPosts } from "services/user";
 import { sp } from "utils/numbers";
+import { shortenText } from "utils/helper";
 import ReactLoading from "react-loading";
 
 import GalleryIcon from "assets/icons/GalleryIcon";
 
 // styles
 import { h3Style } from "styles/categoryFormStyle";
+import {
+  mainStyle,
+  postBoxStyle,
+  descriptionStyle,
+  titleStyle,
+  priceStyle,
+  createdAtStyle,
+  imageBoxStyle,
+  imageStyle,
+  blankImageStyle,
+} from "styles/postListStyle";
 
 function PostList() {
   const baseURL = import.meta.env.VITE_BASE_URL;
   const { data, isLoading } = useQuery(["my-post-list"], getPosts);
 
   return (
-    <div className="flex-1 md:max-w-sm lg:max-w-md xl:max-w-2xl">
+    <div className="flex-1">
       {isLoading ? (
         <ReactLoading
           type="spinningBubbles"
@@ -24,32 +36,37 @@ function PostList() {
       ) : (
         <>
           <h3 className={h3Style}>آگهی های شما</h3>
-          {data.data.posts.map((post) => (
-            <div key={post._id}>
-              <div>
-                {post.images.length ? (
-                  <img
-                    src={`${baseURL}${post.images[0]}`}
-                    className="w-[136px] h-[136px]"
-                  />
-                ) : (
-                  <span className="w-[136px] h-[136px]">
-                    <GalleryIcon />
-                  </span>
-                )}
-              </div>
-              <div>
-                <p>{post.options.title}</p>
+          <div className={mainStyle}>
+            {data.data.posts.map((post) => (
+              <div key={post._id} className={postBoxStyle}>
+                <div className={descriptionStyle}>
+                  <p className={titleStyle}>
+                    {shortenText(post.options.title)}
+                  </p>
+                  <div>
+                    <p className={priceStyle}>{sp(post.amount)} تومان</p>
+                    <span className={createdAtStyle}>
+                      تاریخ:{" "}
+                      {new Date(post.createdAt).toLocaleDateString("fa-IR")}
+                    </span>
+                  </div>
+                </div>
 
-                <div>
-                  <p>{sp(post.amount)} تومان</p>
-                  <span>
-                    {new Date(post.createdAt).toLocaleDateString("fa-IR")}
-                  </span>
+                <div className={imageBoxStyle}>
+                  {post.images.length ? (
+                    <img
+                      src={`${baseURL}${post.images[0]}`}
+                      className={imageStyle}
+                    />
+                  ) : (
+                    <span className={blankImageStyle}>
+                      <GalleryIcon />
+                    </span>
+                  )}
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </>
       )}
     </div>

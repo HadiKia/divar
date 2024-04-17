@@ -92,7 +92,7 @@ function AddPost() {
       .catch(() => toast.error("لطفا فرم را تکمیل کنید"));
   };
   return (
-    <form onChange={changeHandler} className={formStyle}>
+    <form onChange={changeHandler} className="flex-1 md:max-w-sm">
       <h3 className={h3Style}>افزودن آگهی</h3>
 
       <div className={inputBoxStyle}>
