@@ -6,14 +6,7 @@ import { getCookie } from "utils/cookie";
 
 import { Listbox } from "@headlessui/react";
 import toast from "react-hot-toast";
-
-// icons
-import CarIcon from "assets/icons/CarIcon";
-import DigitalIcon from "assets/icons/DigitalIcon";
-import GameIcon from "assets/icons/GameIcon";
-import HomeIcon from "assets/icons/HomeIcon";
-import PersonalIcon from "assets/icons/PersonalIcon";
-import ServiceIcon from "assets/icons/ServiceIcon";
+import RenderIcon from "components/RenderIcon";
 
 // styles
 import {
@@ -150,7 +143,7 @@ function AddPost() {
         <Listbox value={category} onChange={setCategory}>
           <Listbox.Button className={listBoxButtonStyle}>
             <span className="pb-1 scale-[0.8]">
-              {renderIcon(category.icon)}
+              <RenderIcon iconName={category.icon} />
             </span>
             {category.name}
           </Listbox.Button>
@@ -172,7 +165,7 @@ function AddPost() {
                         selected ? "text-primary" : ""
                       }`}
                     >
-                      {renderIcon(item.icon)}
+                      <RenderIcon iconName={item.icon} />
                     </span>
                     <span
                       className={`block truncate pt-0.5 ${
@@ -213,22 +206,3 @@ function AddPost() {
 }
 
 export default AddPost;
-
-function renderIcon(iconName) {
-  switch (iconName) {
-    case "home":
-      return <HomeIcon />;
-    case "car":
-      return <CarIcon />;
-    case "digital":
-      return <DigitalIcon />;
-    case "service":
-      return <ServiceIcon />;
-    case "game":
-      return <GameIcon />;
-    case "personal":
-      return <PersonalIcon />;
-    default:
-      return null;
-  }
-}

@@ -1,13 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCategory } from "services/admin";
-
-// icons
-import CarIcon from "assets/icons/CarIcon";
-import DigitalIcon from "assets/icons/DigitalIcon";
-import GameIcon from "assets/icons/GameIcon";
-import HomeIcon from "assets/icons/HomeIcon";
-import PersonalIcon from "assets/icons/PersonalIcon";
-import ServiceIcon from "assets/icons/ServiceIcon";
+import RenderIcon from "components/RenderIcon";
 
 // styles
 import { h3Style } from "styles/categoryFormStyle";
@@ -21,7 +14,7 @@ function Sidebar() {
       <ul>
         {data?.data.map((category) => (
           <li key={category._id}>
-            {renderIcon(category.icon)}
+            <RenderIcon iconName={category.icon} />
             <p>{category.name}</p>
           </li>
         ))}
@@ -31,22 +24,3 @@ function Sidebar() {
 }
 
 export default Sidebar;
-
-function renderIcon(iconName) {
-  switch (iconName) {
-    case "home":
-      return <HomeIcon />;
-    case "car":
-      return <CarIcon />;
-    case "digital":
-      return <DigitalIcon />;
-    case "service":
-      return <ServiceIcon />;
-    case "game":
-      return <GameIcon />;
-    case "personal":
-      return <PersonalIcon />;
-    default:
-      return null;
-  }
-}

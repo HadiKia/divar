@@ -2,14 +2,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategory, deleteCategory } from "services/admin";
 import ReactLoading from "react-loading";
 import toast from "react-hot-toast";
+import RenderIcon from "components/RenderIcon";
 
 // icons
-import HomeIcon from "assets/icons/HomeIcon";
-import CarIcon from "assets/icons/CarIcon";
-import DigitalIcon from "assets/icons/DigitalIcon";
-import ServiceIcon from "assets/icons/ServiceIcon";
-import GameIcon from "assets/icons/GameIcon";
-import PersonalIcon from "assets/icons/PersonalIcon";
 import CloseIcon from "assets/icons/CloseIcon";
 
 // styles
@@ -64,7 +59,9 @@ function CategoryList() {
           {data.data.map((item) => (
             <div key={item._id} className={categoryBoxStyle}>
               <div className={containerStyle}>
-                <span className={iconStyle}>{renderIcon(item.icon)}</span>
+                <span className={iconStyle}>
+                  <RenderIcon iconName={item.icon} />
+                </span>
                 <h5 className={nameStyle}>{item.name}</h5>
                 <p className={slugStyle}>slug : {item.slug}</p>
               </div>
@@ -84,22 +81,3 @@ function CategoryList() {
 }
 
 export default CategoryList;
-
-function renderIcon(iconName) {
-  switch (iconName) {
-    case "home":
-      return <HomeIcon />;
-    case "car":
-      return <CarIcon />;
-    case "digital":
-      return <DigitalIcon />;
-    case "service":
-      return <ServiceIcon />;
-    case "game":
-      return <GameIcon />;
-    case "personal":
-      return <PersonalIcon />;
-    default:
-      return null;
-  }
-}
