@@ -41,7 +41,9 @@ function PostList() {
               <div key={post._id} className={postBoxStyle}>
                 <div className={descriptionStyle}>
                   <p className={titleStyle}>
-                    {shortenText(post.options.title)}
+                    {post.options.title?.length >= 5
+                      ? shortenText(post.options.title)
+                      : post.options.title}
                   </p>
                   <div>
                     <p className={priceStyle}>{sp(post.amount)} تومان</p>

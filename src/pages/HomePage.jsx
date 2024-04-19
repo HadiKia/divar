@@ -17,7 +17,7 @@ function HomePage() {
   );
 
   return (
-    <div className="container max-w-[1440px] mx-auto px-4 pt-7 pb-20 md:py-10 md:flex md:items-start md:justify-between">
+    <div className="container max-w-[1440px] mx-auto px-4 pt-7 pb-20 md:py-10 md:flex md:items-start md:justify-between md:gap-x-5">
       {postLoading || categoryLoading ? (
         <ReactLoading
           type="spinningBubbles"
@@ -27,7 +27,7 @@ function HomePage() {
         />
       ) : (
         <>
-          <div className="hidden md:block md:w-full md:md:max-w-xs">
+          <div className="hidden md:block md:w-full md:md:max-w-[200px] ">
             <Sidebar categories={categories} />
           </div>
           <Main posts={posts} />
