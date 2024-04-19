@@ -1,19 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
-import { getCategory } from "services/admin";
 import RenderIcon from "components/RenderIcon";
 
 // styles
 import { h3Style } from "styles/categoryFormStyle";
 import { ulStyle, liStyle, iconStyle, nameStyle } from "styles/sidebarStyle";
 
-function Sidebar() {
-  const { data } = useQuery(["get-categories"], getCategory);
-
+function Sidebar({ categories }) {
   return (
     <>
       <h3 className={h3Style}>دسته بندی ها</h3>
       <ul className={ulStyle}>
-        {data?.data.map((category) => (
+        {categories.data.map((category) => (
           <li key={category._id} className={liStyle}>
             <span className={iconStyle}>
               <RenderIcon iconName={category.icon} />
