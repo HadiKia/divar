@@ -23,6 +23,7 @@ import {
   InActiveStyle,
   activeStyle,
 } from "styles/footerStyle";
+import CategoryModal from "components/CategoryModal";
 
 function Footer() {
   const url = window.location.href.split("/")[3];
@@ -31,8 +32,12 @@ function Footer() {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenCategory, setIsOpenCategory] = useState(false);
+
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
+  const openCategory = () => setIsOpenCategory(true);
+  const closeCategory = () => setIsOpenCategory(false);
 
   return (
     <footer className={footerStyle}>
@@ -82,7 +87,10 @@ function Footer() {
             {({ checked }) => (
               <span
                 className={checked ? activeStyle : InActiveStyle}
-                onClick={() => navigate("/")}
+                onClick={() => {
+                  navigate("/");
+                  openCategory();
+                }}
               >
                 <MenuIcon />
                 <p>دسته‌ها</p>
@@ -123,6 +131,13 @@ function Footer() {
       <AuthModal
         isOpen={isOpen}
         closeModal={closeModal}
+        setIsActive={setIsActive}
+      />
+
+      <CategoryModal
+        isOpenCategory={isOpenCategory}
+        setIsOpenCategory={setIsOpenCategory}
+        closeCategory={closeCategory}
         setIsActive={setIsActive}
       />
     </footer>
