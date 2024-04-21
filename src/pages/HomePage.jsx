@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllPosts } from "services/user";
 import { getCategory } from "services/admin";
-import ReactLoading from "react-loading";
 
 import Main from "components/templates/Main";
 import Sidebar from "components/templates/Sidebar";
+import Loader from "components/Loader";
+
+import { containerStyle, sideBarDivStyle } from "styles/homePageStyle";
 
 function HomePage() {
   const { data: posts, isLoading: postLoading } = useQuery(
@@ -17,17 +19,12 @@ function HomePage() {
   );
 
   return (
-    <div className="container max-w-[1440px] mx-auto px-4 pt-7 pb-20 md:py-10 md:flex md:items-start md:justify-between md:gap-x-5">
+    <div className={containerStyle}>
       {postLoading || categoryLoading ? (
-        <ReactLoading
-          type="spinningBubbles"
-          color="#A62626"
-          height={40}
-          width={40}
-        />
+        <Loader />
       ) : (
         <>
-          <div className="hidden md:block md:w-full md:md:max-w-[200px] ">
+          <div className={sideBarDivStyle}>
             <Sidebar categories={categories} />
           </div>
           <Main posts={posts} />

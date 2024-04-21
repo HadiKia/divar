@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addCategory } from "services/admin";
 import ReactLoading from "react-loading";
 import toast from "react-hot-toast";
-import ToasterComponent from "components/Toaster";
+
 // styles
 import {
   formStyle,
@@ -32,7 +32,8 @@ function CategoryForm() {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (!form.name || !form.slug || !form.icon) return;
+    if (!form.name || !form.slug || !form.icon)
+      return toast.error("لطفا فرم را تکمیل کنید");
     mutate(form);
   };
 
