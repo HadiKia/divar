@@ -1,5 +1,6 @@
 import CarIcon from "assets/icons/CarIcon";
 import DigitalIcon from "assets/icons/DigitalIcon";
+import FirsLineIcon from "assets/icons/FirsLineIcon";
 import GameIcon from "assets/icons/GameIcon";
 import HomeIcon from "assets/icons/HomeIcon";
 import PersonalIcon from "assets/icons/PersonalIcon";
@@ -7,6 +8,8 @@ import ServiceIcon from "assets/icons/ServiceIcon";
 
 function RenderIcon({ iconName }) {
   switch (iconName) {
+    case "all":
+      return <FirsLineIcon />;
     case "home":
       return <HomeIcon />;
     case "car":

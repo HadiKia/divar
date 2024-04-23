@@ -1,7 +1,10 @@
+import { useEffect, useState } from "react";
+import { useQueryContext } from "hooks/useQueryContext";
 import { useQuery } from "@tanstack/react-query";
 import { getAllPosts } from "services/user";
-import { shortenText } from "utils/helper";
+import { filterPosts, searchPosts, shortenText } from "utils/helpers";
 import { sp } from "utils/numbers";
+import Loader from "components/Loader";
 
 import GalleryIcon from "assets/icons/GalleryIcon";
 
@@ -17,26 +20,35 @@ import {
   priceStyle,
   titleStyle,
 } from "styles/postListStyle";
-import Loader from "components/Loader";
 
 function Main() {
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   const { data, isLoading } = useQuery(["post-list"], getAllPosts);
 
+  const { query } = useQueryContext();
+
+  const [displayed, setDisplayed] = useState([]);
+
+  useEffect(() => {
+    setDisplayed(data?.data.posts);
+  }, [data]);
+
+  useEffect(() => {
+    let finalPosts = searchPosts(data?.data.posts, query.search);
+    finalPosts = filterPosts(finalPosts, query.category);
+    setDisplayed(finalPosts);
+  }, [query]);
+
   return (
     <div className={mainStyle}>
       {isLoading ? (
         <Loader />
       ) : (
-        data.data.posts.map((post) => (
+        displayed?.map((post) => (
           <div key={post._id} className={postBoxStyle}>
             <div className={descriptionStyle}>
-              <p className={titleStyle}>
-                {post.options.title?.length >= 5
-                  ? shortenText(post.options.title)
-                  : post.options.title}
-              </p>
+              <p className={titleStyle}>{post.options.title}</p>
               <div>
                 <p className={priceStyle}>{sp(post.amount)} تومان</p>
                 <span className={createdAtStyle}>

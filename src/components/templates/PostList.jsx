@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPosts } from "services/user";
 import { sp } from "utils/numbers";
-import { shortenText } from "utils/helper";
+import { shortenText } from "utils/helpers";
 import Loader from "components/Loader";
 
 import GalleryIcon from "assets/icons/GalleryIcon";

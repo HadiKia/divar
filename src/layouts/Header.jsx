@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getProfile } from "services/user";
 import { useQuery } from "@tanstack/react-query";
-
+import AuthModal from "components/AuthModal";
+import Search from "components/templates/Search";
 // icons
 import DivarIcon from "assets/icons/DivarIcon";
 import LocationIcon from "assets/icons/LocationIcon";
 import UserIcon from "assets/icons/UserIcon";
-import SearchIcon from "assets/icons/SearchIcon";
 
 // styles
 import {
@@ -15,13 +15,11 @@ import {
   dashboardButtonStyle,
   borderStyle,
   locationStyle,
-  searchBoxStyle,
   loginButtonStyle,
   logoDivStyle,
   logoStyle,
   navbarStyle,
 } from "styles/headerStyle";
-import AuthModal from "components/AuthModal";
 
 function Header() {
   const { data } = useQuery(["profile"], getProfile);
@@ -44,10 +42,7 @@ function Header() {
             <p>تهران</p>
           </span>
 
-          <div className={searchBoxStyle}>
-            <SearchIcon />
-            <input type="search" placeholder="جستجو در همهٔ آگهی‌ها" />
-          </div>
+          <Search />
         </div>
 
         <div className={buttonsDivStyle}>

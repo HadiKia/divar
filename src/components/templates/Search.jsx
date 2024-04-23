@@ -1,0 +1,32 @@
+import SearchIcon from "assets/icons/SearchIcon";
+import { useQueryContext } from "hooks/useQueryContext";
+import { useState } from "react";
+
+// styles
+import { formStyle } from "styles/SearchStyle";
+
+function Search() {
+  const [search, setSearch] = useState("");
+  const { setQuery } = useQueryContext();
+
+  const searchHandler = (event) => {
+    event.preventDefault();
+    setQuery((query) => ({ ...query, search }));
+  };
+
+  return (
+    <form onSubmit={searchHandler} className={formStyle}>
+      <button>
+        <SearchIcon />
+      </button>
+      <input
+        type="search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="جستجو در همهٔ آگهی‌ها"
+      />
+    </form>
+  );
+}
+
+export default Search;

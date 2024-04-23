@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import defaultOptions from "configs/reactQuery";
 import Layout from "layouts/Layout";
 import ToasterComponent from "components/Toaster";
+import QueryProvider from "context/QueryContext";
 
 function App() {
   const queryClient = new QueryClient({ defaultOptions });
@@ -12,9 +13,11 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Layout>
-          <Router />
-        </Layout>
+        <QueryProvider>
+          <Layout>
+            <Router />
+          </Layout>
+        </QueryProvider>
         <ToasterComponent />
       </BrowserRouter>
     </QueryClientProvider>

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCategory } from "services/admin";
+import { useQueryContext } from "hooks/useQueryContext";
 import Loader from "components/Loader";
 
 import CloseIcon from "assets/icons/CloseIcon";
@@ -15,22 +16,36 @@ import {
   nameStyle,
 } from "styles/sidebarStyle";
 import { modalTitleStyle } from "styles/Send&CheckOtpFormStyle";
-import ArrowLeft from "assets/icons/ArrowLeft";
 
-function Sidebar({ closeCategory, setIsActive }) {
+function Sidebar({ isOpenCategory, closeCategory, setIsActive }) {
   const { data, isLoading } = useQuery(["get-categories"], getCategory);
+  const { setQuery } = useQueryContext();
+
+  const categories = data?.data || [];
+  const modifiedCategories = [
+    { _id: "all", name: "همه", icon: "all" },
+    ...categories,
+  ];
+
+  const categoryHandler = (event) => {
+    const { tagName } = event.target;
+    if (tagName !== "P") return;
+    const category = event.target.getAttribute("data-id");
+    setQuery((query) => ({ ...query, category }));
+  };
+
+  const closeCategoryModal = () => {
+    if (isOpenCategory) {
+      closeCategory();
+      setIsActive("");
+    }
+  };
 
   return (
     <>
       <div className={titleDivStyle}>
         <p className={modalTitleStyle}>انتخاب دسته بندی</p>
-        <span
-          className="text-secondary"
-          onClick={() => {
-            closeCategory();
-            setIsActive("");
-          }}
-        >
+        <span className="text-secondary" onClick={closeCategoryModal}>
           <CloseIcon />
         </span>
       </div>
@@ -40,18 +55,19 @@ function Sidebar({ closeCategory, setIsActive }) {
       ) : (
         <>
           <h3 className={`${h3Style} hidden md:block`}>دسته بندی ها</h3>
-          <ul className={ulStyle}>
-            {data.data.map((category) => (
-              <li key={category._id} className={liStyle}>
-                <div className="flex items-center gap-x-1">
-                  <span className={iconStyle}>
-                    <RenderIcon iconName={category.icon} />
-                  </span>
-                  <p className={nameStyle}>{category.name}</p>
-                </div>
-                <span className="md:hidden">
-                  <ArrowLeft />
+          <ul onClick={categoryHandler} className={ulStyle}>
+            {modifiedCategories.map((category) => (
+              <li
+                key={category._id}
+                className={liStyle}
+                onClick={closeCategoryModal}
+              >
+                <span className={iconStyle}>
+                  <RenderIcon iconName={category.icon} />
                 </span>
+                <p data-id={category._id} className={nameStyle}>
+                  {category.name}
+                </p>
               </li>
             ))}
           </ul>
