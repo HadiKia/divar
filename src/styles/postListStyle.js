@@ -5,8 +5,11 @@ const descriptionStyle = "flex-1 flex flex-col justify-between overflow-hidden";
 const titleStyle =
   "text-dark font-medium overflow-hidden whitespace-nowrap overflow-ellipsis";
 const priceStyle =
-  "text-secondary text-sm mb-1 overflow-hidden overflow-ellipsis";
-const createdAtStyle = "text-secondary text-xs";
+  "text-secondary text-sm mb-1.5 overflow-hidden whitespace-nowrap overflow-ellipsis font-medium";
+const cityDivStyle =
+  "flex items-center gap-x-1 text-secondary whitespace-nowrap text-xs";
+const createdAtStyle =
+  "overflow-hidden whitespace-nowrap overflow-ellipsis font-medium";
 const imageBoxStyle = "flex-1 flex justify-end";
 const imageStyle = "w-[136px] h-[136px] rounded ";
 const blankImageStyle =
@@ -18,6 +21,7 @@ export {
   descriptionStyle,
   titleStyle,
   priceStyle,
+  cityDivStyle,
   createdAtStyle,
   imageBoxStyle,
   imageStyle,

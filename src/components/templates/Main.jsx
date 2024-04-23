@@ -11,6 +11,7 @@ import GalleryIcon from "assets/icons/GalleryIcon";
 // styles
 import {
   blankImageStyle,
+  cityDivStyle,
   createdAtStyle,
   descriptionStyle,
   imageBoxStyle,
@@ -51,9 +52,15 @@ function Main() {
               <p className={titleStyle}>{post.options.title}</p>
               <div>
                 <p className={priceStyle}>{sp(post.amount)} تومان</p>
-                <span className={createdAtStyle}>
-                  تاریخ: {new Date(post.createdAt).toLocaleDateString("fa-IR")}
-                </span>
+                <div className={cityDivStyle}>
+                  <span>
+                    {post.options.city ? post.options.city : "مکان نامشخص"}
+                  </span>
+                  -
+                  <span className={createdAtStyle}>
+                    {new Date(post.createdAt).toLocaleDateString("fa-IR")}
+                  </span>
+                </div>
               </div>
             </div>
 
