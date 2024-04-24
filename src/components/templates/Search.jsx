@@ -4,6 +4,7 @@ import { useState } from "react";
 
 // styles
 import { formStyle } from "styles/SearchStyle";
+import { createQueryObject } from "utils/helpers";
 
 function Search() {
   const [search, setSearch] = useState("");
@@ -11,7 +12,7 @@ function Search() {
 
   const searchHandler = (event) => {
     event.preventDefault();
-    setQuery((query) => ({ ...query, search }));
+    setQuery((query) => createQueryObject(query, { search }));
   };
 
   return (

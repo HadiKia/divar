@@ -16,6 +16,7 @@ import {
   nameStyle,
 } from "styles/sidebarStyle";
 import { modalTitleStyle } from "styles/Send&CheckOtpFormStyle";
+import { createQueryObject } from "utils/helpers";
 
 function Sidebar({ isOpenCategory, closeCategory, setIsActive }) {
   const { data, isLoading } = useQuery(["get-categories"], getCategory);
@@ -31,7 +32,7 @@ function Sidebar({ isOpenCategory, closeCategory, setIsActive }) {
     const { tagName } = event.target;
     if (tagName !== "P") return;
     const category = event.target.getAttribute("data-id");
-    setQuery((query) => ({ ...query, category }));
+    setQuery((query) => createQueryObject(query, { category }));
   };
 
   const closeCategoryModal = () => {

@@ -188,7 +188,7 @@ function AddPost() {
           name="images"
           id="images"
           className={inputFileStyle}
-          accept=".jpeg, .jpg, .png, .webp, .svg"
+          accept="image/*"
         />
         <span className={inputFileNameStyle}>{imageLabel}</span>
         <label htmlFor="images" className={labelStyle}>

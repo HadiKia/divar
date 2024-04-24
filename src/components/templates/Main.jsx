@@ -3,6 +3,7 @@ import { useQueryContext } from "hooks/useQueryContext";
 import { useQuery } from "@tanstack/react-query";
 import { getAllPosts } from "services/user";
 import { filterPosts, searchPosts, shortenText } from "utils/helpers";
+import { useSearchParams } from "react-router-dom";
 import { sp } from "utils/numbers";
 import Loader from "components/Loader";
 
@@ -26,16 +27,16 @@ function Main() {
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   const { data, isLoading } = useQuery(["post-list"], getAllPosts);
-
   const { query } = useQueryContext();
-
   const [displayed, setDisplayed] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     setDisplayed(data?.data.posts);
   }, [data]);
 
   useEffect(() => {
+    setSearchParams(query);
     let finalPosts = searchPosts(data?.data.posts, query.search);
     finalPosts = filterPosts(finalPosts, query.category);
     setDisplayed(finalPosts);
