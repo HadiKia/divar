@@ -1,6 +1,6 @@
 import SearchIcon from "assets/icons/SearchIcon";
 import { useQueryContext } from "hooks/useQueryContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // styles
 import { formStyle } from "styles/SearchStyle";
@@ -8,12 +8,16 @@ import { createQueryObject } from "utils/helpers";
 
 function Search() {
   const [search, setSearch] = useState("");
-  const { setQuery } = useQueryContext();
+  const { query, setQuery } = useQueryContext();
 
   const searchHandler = (event) => {
     event.preventDefault();
     setQuery((query) => createQueryObject(query, { search }));
   };
+
+  useEffect(() => {
+    setSearch(query.search || "");
+  }, [query]);
 
   return (
     <form onSubmit={searchHandler} className={formStyle}>

@@ -4,7 +4,7 @@ const shortenText = (text) => {
 
 const searchPosts = (posts, search) => {
   if (!search) return posts;
-  const searchedPosts = posts.filter((post) =>
+  const searchedPosts = posts?.filter((post) =>
     post.options.title?.toLowerCase().includes(search)
   );
   return searchedPosts;
@@ -12,7 +12,7 @@ const searchPosts = (posts, search) => {
 
 const filterPosts = (posts, category) => {
   if (!category) return posts;
-  const filteredPosts = posts.filter((post) => post.category === category);
+  const filteredPosts = posts?.filter((post) => post.category === category);
   return filteredPosts;
 };
 
@@ -28,4 +28,19 @@ const createQueryObject = (currentQuery, newQuery) => {
   return { ...currentQuery, ...newQuery };
 };
 
-export { shortenText, searchPosts, filterPosts, createQueryObject };
+const getInitialQuery = (searchParams) => {
+  const query = {};
+  const category = searchParams.get("category");
+  const search = searchParams.get("search");
+  if (category) query.category = category;
+  if (search) query.search = search;
+  return query;
+};
+
+export {
+  shortenText,
+  searchPosts,
+  filterPosts,
+  createQueryObject,
+  getInitialQuery,
+};
