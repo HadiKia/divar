@@ -2,20 +2,17 @@ import { useEffect, useState } from "react";
 import { useQueryContext } from "hooks/useQueryContext";
 import { useQuery } from "@tanstack/react-query";
 import { getAllPosts } from "services/user";
-import {
-  filterPosts,
-  getInitialQuery,
-  searchPosts,
-  shortenText,
-} from "utils/helpers";
+import { filterPosts, getInitialQuery, searchPosts } from "utils/helpers";
 import { useSearchParams } from "react-router-dom";
 import { sp } from "utils/numbers";
 import Loader from "components/Loader";
+import empty from "assets/images/empty-page.svg";
 
 import GalleryIcon from "assets/icons/GalleryIcon";
 
 // styles
 import {
+  h3Style,
   blankImageStyle,
   cityDivStyle,
   createdAtStyle,
@@ -26,6 +23,8 @@ import {
   postBoxStyle,
   priceStyle,
   titleStyle,
+  notFoundDivStyle,
+  notFountTitleStyle,
 } from "styles/postListStyle";
 
 function Main() {
@@ -49,11 +48,14 @@ function Main() {
   }, [query]);
 
   return (
-    <div className={mainStyle}>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        displayed?.map((post) => (
+    <div className="w-full">
+      <h3 className={h3Style}>دیوار تهران:‌ انواع آگهی‌ها و خدمات در تهران</h3>
+      <div className={mainStyle}>
+        {!displayed && isLoading && <Loader />}
+        {!displayed?.length && !isLoading && query.search && (
+          <NotFound query={query} />
+        )}
+        {displayed?.map((post) => (
           <div key={post._id} className={postBoxStyle}>
             <div className={descriptionStyle}>
               <p className={titleStyle}>{post.options.title}</p>
@@ -84,10 +86,21 @@ function Main() {
               )}
             </div>
           </div>
-        ))
-      )}
+        ))}
+      </div>
     </div>
   );
 }
 
 export default Main;
+
+function NotFound({ query }) {
+  return (
+    <div className={notFoundDivStyle}>
+      <img src={empty} alt="پیدا نشد" />
+      <p className={notFountTitleStyle}>
+        آگهی مرتبط با "{query.search}" پیدا نشد.
+      </p>
+    </div>
+  );
+}

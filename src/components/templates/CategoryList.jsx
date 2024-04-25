@@ -1,7 +1,7 @@
 import RenderIcon from "components/RenderIcon";
 
 // icons
-import CloseIcon from "assets/icons/CloseIcon";
+import TrashIcon from "assets/icons/TrashIcon";
 
 // styles
 import { h3Style } from "styles/categoryFormStyle";
@@ -15,7 +15,7 @@ import {
   deleteStyle,
 } from "styles/categoryListStyle";
 
-function CategoryList({ data, mutate, error}) {
+function CategoryList({ data, mutate, error }) {
   const handleDelete = (categoryId) => {
     mutate(categoryId);
   };
@@ -36,7 +36,7 @@ function CategoryList({ data, mutate, error}) {
             onClick={() => handleDelete(item._id)}
             className={deleteStyle}
           >
-            <CloseIcon />
+            <TrashIcon />
           </button>
         </div>
       ))}

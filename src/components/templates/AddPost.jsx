@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategory } from "services/admin";
 import { getCookie } from "utils/cookie";
-
 import { Listbox } from "@headlessui/react";
+import axios from "axios";
+import ReactLoading from "react-loading";
 import toast from "react-hot-toast";
 import RenderIcon from "components/RenderIcon";
 
@@ -38,6 +38,8 @@ function AddPost() {
   const { data } = useQuery(["get-categories"], getCategory);
   const [category, setCategory] = useState("");
   const [imageLabel, setImageLabel] = useState("عکس خود را بارگزاری کنید");
+  const [isLoading, setIsLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (data) setCategory(data.data[0]);
@@ -69,7 +71,17 @@ function AddPost() {
     }
 
     const token = getCookie("accessToken");
+    if (
+      !form.title ||
+      !form.content ||
+      !form.amount ||
+      !form.amount ||
+      !form.city ||
+      !form.city
+    )
+      return toast.error("لطفا فرم را تکمیل کنید");
 
+    setIsLoading(true);
     axios
       .post(`${import.meta.env.VITE_BASE_URL}post/create`, formData, {
         headers: {
@@ -79,8 +91,13 @@ function AddPost() {
       })
       .then((res) => {
         toast.success(res.data.message);
+        queryClient.invalidateQueries("my-post-list");
+        setIsLoading(false);
       })
-      .catch(() => toast.error("لطفا فرم را تکمیل کنید"));
+      .catch(() => {
+        toast.error("لطفا فرم را تکمیل کنید");
+        setIsLoading(false);
+      });
   };
   return (
     <form onChange={changeHandler} className="flex-1 md:max-w-xs">
@@ -197,8 +214,22 @@ function AddPost() {
       </div>
 
       <div className={buttonDivStyle}>
-        <button onClick={addHandler} className={formButtonStyle}>
-          ایجاد
+        <button
+          onClick={addHandler}
+          className={formButtonStyle}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <ReactLoading
+              type="bubbles"
+              color="#fff"
+              height={20}
+              width={25}
+              className="mb-1.5"
+            />
+          ) : (
+            "ایجاد"
+          )}
         </button>
       </div>
     </form>

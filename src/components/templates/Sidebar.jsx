@@ -7,11 +7,12 @@ import CloseIcon from "assets/icons/CloseIcon";
 import RenderIcon from "components/RenderIcon";
 
 // styles
-import { h3Style } from "styles/categoryFormStyle";
 import {
   titleDivStyle,
+  h3Style,
   ulStyle,
   liStyle,
+  liActiveStyle,
   iconStyle,
   nameStyle,
 } from "styles/sidebarStyle";
@@ -20,7 +21,7 @@ import { createQueryObject } from "utils/helpers";
 
 function Sidebar({ isOpenCategory, closeCategory, setIsActive }) {
   const { data, isLoading } = useQuery(["get-categories"], getCategory);
-  const { setQuery } = useQueryContext();
+  const { query, setQuery } = useQueryContext();
 
   const categories = data?.data || [];
   const modifiedCategories = [
@@ -55,13 +56,17 @@ function Sidebar({ isOpenCategory, closeCategory, setIsActive }) {
         <Loader />
       ) : (
         <>
-          <h3 className={`${h3Style} hidden md:block`}>دسته بندی ها</h3>
+          <h3 className={h3Style}>دسته‌ها</h3>
           <ul onClick={categoryHandler} className={ulStyle}>
             {modifiedCategories.map((category) => (
               <li
                 key={category._id}
-                className={liStyle}
                 onClick={closeCategoryModal}
+                className={
+                category._id === query.category
+                    ? liActiveStyle
+                    : liStyle
+                }
               >
                 <span className={iconStyle}>
                   <RenderIcon iconName={category.icon} />

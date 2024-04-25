@@ -1,6 +1,4 @@
-const shortenText = (text) => {
-  return text.split(" ").slice(0, 5).join(" ");
-};
+
 
 const searchPosts = (posts, search) => {
   if (!search) return posts;
@@ -38,7 +36,6 @@ const getInitialQuery = (searchParams) => {
 };
 
 export {
-  shortenText,
   searchPosts,
   filterPosts,
   createQueryObject,

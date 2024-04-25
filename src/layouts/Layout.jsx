@@ -5,7 +5,7 @@ function Layout({ children }) {
   return (
     <>
       <Header />
-      <div> {children}</div>
+      <div className="md:min-h-[calc(100vh_-_100px)]"> {children}</div>
       <Footer />
     </>
   );
