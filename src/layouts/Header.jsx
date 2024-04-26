@@ -4,6 +4,8 @@ import { getProfile } from "services/user";
 import { useQuery } from "@tanstack/react-query";
 import AuthModal from "components/AuthModal";
 import Search from "components/templates/Search";
+import AdminPageModal from "components/AdminPageModal";
+
 // icons
 import DivarIcon from "assets/icons/DivarIcon";
 import LocationIcon from "assets/icons/LocationIcon";
@@ -26,6 +28,8 @@ function Header() {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenAdminModal, setIsOpenAdminModal] = useState(false);
+
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
 
@@ -46,7 +50,9 @@ function Header() {
         </div>
 
         <div className={buttonsDivStyle}>
-          <button onClick={() => (data ? navigate("/dashboard") : openModal())}>
+          <button
+            onClick={() => (!data ? openModal() : setIsOpenAdminModal(true))}
+          >
             <span className={loginButtonStyle}>
               <UserIcon />
               <p>دیوار من</p>
@@ -61,6 +67,10 @@ function Header() {
         </div>
 
         <AuthModal isOpen={isOpen} closeModal={closeModal} />
+        <AdminPageModal
+          isOpenAdminModal={isOpenAdminModal}
+          setIsOpenAdminModal={setIsOpenAdminModal}
+        />
       </div>
     </header>
   );

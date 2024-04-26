@@ -24,6 +24,7 @@ import {
   activeStyle,
 } from "styles/footerStyle";
 import CategoryModal from "components/CategoryModal";
+import AdminPageModal from "components/AdminPageModal";
 
 function Footer() {
   const url = window.location.href.split("/")[3];
@@ -33,6 +34,7 @@ function Footer() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
+  const [isOpenAdminModal, setIsOpenAdminModal] = useState(false);
 
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
@@ -114,9 +116,15 @@ function Footer() {
             {({ checked }) => (
               <span
                 className={
-                  checked && url === "dashboard" ? activeStyle : InActiveStyle
+                  checked && url === "dashboard"
+                    ? activeStyle
+                    : url === "admin"
+                    ? activeStyle
+                    : InActiveStyle
                 }
-                onClick={() => (data ? navigate("/dashboard") : openModal())}
+                onClick={() =>
+                  !data ? openModal() : setIsOpenAdminModal(true)
+                }
               >
                 <span className="scale-110">
                   <UserIcon />
@@ -138,6 +146,12 @@ function Footer() {
         isOpenCategory={isOpenCategory}
         setIsOpenCategory={setIsOpenCategory}
         closeCategory={closeCategory}
+        setIsActive={setIsActive}
+      />
+
+      <AdminPageModal
+        isOpenAdminModal={isOpenAdminModal}
+        setIsOpenAdminModal={setIsOpenAdminModal}
         setIsActive={setIsActive}
       />
     </footer>
