@@ -26,7 +26,7 @@ import {
 import CategoryModal from "components/CategoryModal";
 import AdminPageModal from "components/AdminPageModal";
 
-function Footer() {
+function Footer({ isOpenAdminModal, setIsOpenAdminModal }) {
   const url = window.location.href.split("/")[3];
   let [isActive, setIsActive] = useState(url);
   const { data } = useQuery(["profile"], getProfile);
@@ -34,7 +34,6 @@ function Footer() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
-  const [isOpenAdminModal, setIsOpenAdminModal] = useState(false);
 
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
@@ -76,7 +75,10 @@ function Footer() {
             {({ checked }) => (
               <span
                 className={checked && url === "" ? activeStyle : InActiveStyle}
-                onClick={() => navigate("/")}
+                onClick={() => {
+                  navigate("/");
+                  setIsOpenAdminModal(false);
+                }}
               >
                 <span className="scale-90">
                   <DivarIcon />
@@ -92,6 +94,7 @@ function Footer() {
                 onClick={() => {
                   navigate("/");
                   openCategory();
+                  setIsOpenAdminModal(false);
                 }}
               >
                 <MenuIcon />
@@ -105,7 +108,11 @@ function Footer() {
                 className={
                   checked && url === "dashboard" ? activeStyle : InActiveStyle
                 }
-                onClick={() => (data ? navigate("/dashboard") : openModal())}
+                onClick={() =>
+                  data
+                    ? navigate("/dashboard") || setIsOpenAdminModal(false)
+                    : openModal()
+                }
               >
                 <AddIcon />
                 <p>ثبت آگهی</p>
@@ -149,11 +156,13 @@ function Footer() {
         setIsActive={setIsActive}
       />
 
-      <AdminPageModal
-        isOpenAdminModal={isOpenAdminModal}
-        setIsOpenAdminModal={setIsOpenAdminModal}
-        setIsActive={setIsActive}
-      />
+      <div className="md:hidden">
+        <AdminPageModal
+          isOpenAdminModal={isOpenAdminModal}
+          setIsOpenAdminModal={setIsOpenAdminModal}
+          setIsActive={setIsActive}
+        />
+      </div>
     </footer>
   );
 }

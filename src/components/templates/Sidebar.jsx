@@ -63,9 +63,7 @@ function Sidebar({ isOpenCategory, closeCategory, setIsActive }) {
                 key={category._id}
                 onClick={closeCategoryModal}
                 className={
-                category._id === query.category
-                    ? liActiveStyle
-                    : liStyle
+                  category._id === query.category ? liActiveStyle : liStyle
                 }
               >
                 <span className={iconStyle}>

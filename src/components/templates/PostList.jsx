@@ -1,7 +1,7 @@
 import { sp } from "utils/numbers";
-import Loader from "components/Loader";
-
+import empty from "assets/images/empty-page.svg";
 import GalleryIcon from "assets/icons/GalleryIcon";
+import TrashIcon from "assets/icons/TrashIcon";
 
 // styles
 import { h3Style } from "styles/categoryFormStyle";
@@ -16,8 +16,9 @@ import {
   imageStyle,
   blankImageStyle,
   cityDivStyle,
+  notFoundDivStyle,
+  notFountTitleStyle,
 } from "styles/postListStyle";
-import TrashIcon from "assets/icons/TrashIcon";
 
 function PostList({ data, mutate }) {
   const baseURL = import.meta.env.VITE_BASE_URL;
@@ -65,6 +66,15 @@ function PostList({ data, mutate }) {
             </div>
           </div>
         ))}
+
+        {!data.data.posts.length && (
+          <div className={notFoundDivStyle}>
+            <img src={empty} alt="پیدا نشد" />
+            <p className={notFountTitleStyle}>
+              شما هنوز هیچ آگهی ثبت نکرده‌اید.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

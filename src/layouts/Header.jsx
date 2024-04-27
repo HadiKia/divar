@@ -18,25 +18,28 @@ import {
   borderStyle,
   locationStyle,
   loginButtonStyle,
+  loginButtonActiveStyle,
   logoDivStyle,
   logoStyle,
   navbarStyle,
 } from "styles/headerStyle";
 
-function Header() {
+function Header({ isOpenAdminModal, setIsOpenAdminModal }) {
   const { data } = useQuery(["profile"], getProfile);
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpenAdminModal, setIsOpenAdminModal] = useState(false);
 
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
 
   return (
-    <header className="shadow">
+    <header className="shadow sticky top-0 bg-white z-10">
       <div className={navbarStyle}>
-        <div className={logoDivStyle}>
+        <div
+          className={logoDivStyle}
+          onClick={() => setIsOpenAdminModal(false)}
+        >
           <Link to="/" className={logoStyle}>
             <DivarIcon />
           </Link>
@@ -51,26 +54,36 @@ function Header() {
 
         <div className={buttonsDivStyle}>
           <button
-            onClick={() => (!data ? openModal() : setIsOpenAdminModal(true))}
+            onClick={() =>
+              !data ? openModal() : setIsOpenAdminModal(() => !isOpenAdminModal)
+            }
           >
-            <span className={loginButtonStyle}>
+            <span
+              className={
+                isOpenAdminModal ? loginButtonActiveStyle : loginButtonStyle
+              }
+            >
               <UserIcon />
               <p>دیوار من</p>
             </span>
           </button>
           <button
-            onClick={() => (data ? navigate("/dashboard") : openModal())}
+            onClick={() =>
+              data
+                ? navigate("/dashboard") || setIsOpenAdminModal(false)
+                : openModal()
+            }
             className={dashboardButtonStyle}
           >
             ثبت آگهی
           </button>
+          <AdminPageModal
+            isOpenAdminModal={isOpenAdminModal}
+            setIsOpenAdminModal={setIsOpenAdminModal}
+          />
         </div>
 
         <AuthModal isOpen={isOpen} closeModal={closeModal} />
-        <AdminPageModal
-          isOpenAdminModal={isOpenAdminModal}
-          setIsOpenAdminModal={setIsOpenAdminModal}
-        />
       </div>
     </header>
   );

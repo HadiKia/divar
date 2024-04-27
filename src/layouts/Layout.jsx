@@ -1,12 +1,20 @@
 import Footer from "layouts/Footer";
 import Header from "layouts/Header";
+import { useState } from "react";
 
 function Layout({ children }) {
+  const [isOpenAdminModal, setIsOpenAdminModal] = useState(false);
   return (
     <>
-      <Header />
+      <Header
+        isOpenAdminModal={isOpenAdminModal}
+        setIsOpenAdminModal={setIsOpenAdminModal}
+      />
       <div className="md:min-h-[calc(100vh_-_100px)]"> {children}</div>
-      <Footer />
+      <Footer
+        isOpenAdminModal={isOpenAdminModal}
+        setIsOpenAdminModal={setIsOpenAdminModal}
+      />
     </>
   );
 }
