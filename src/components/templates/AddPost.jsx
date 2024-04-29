@@ -8,6 +8,7 @@ import axios from "axios";
 import ReactLoading from "react-loading";
 import toast from "react-hot-toast";
 import RenderIcon from "components/RenderIcon";
+import CitySelection from "components/CitySelection";
 
 // styles
 import {
@@ -142,37 +143,10 @@ function AddPost() {
       </div>
 
       <div className={inputBoxStyle}>
-        <Listbox value={selectedProvince} onChange={setSelectedProvince}>
-          <Listbox.Label className={labelStyle}>استان</Listbox.Label>
-          <Listbox.Button className={listBoxButtonStyle}>
-            {selectedProvince.name}
-          </Listbox.Button>
-          <Listbox.Options className={listBoxOptionsStyle}>
-            {provinces.map((province, index) => (
-              <div key={province.id}>
-                <Listbox.Option
-                  key={province.id}
-                  value={province}
-                  disabled={province.unavailable}
-                  className={({ active }) =>
-                    `${listBoxOptionStyle} ${
-                      active ? listBoxOptionActiveStyle : null
-                    }`
-                  }
-                >
-                  {({ selected }) => (
-                    <span className={selected ? "text-primary" : ""}>
-                      {province.name}
-                    </span>
-                  )}
-                </Listbox.Option>
-                {index !== provinces.length - 1 && (
-                  <hr className="border-[#EDEDED]" />
-                )}
-              </div>
-            ))}
-          </Listbox.Options>
-        </Listbox>
+        <CitySelection
+          selectedProvince={selectedProvince}
+          setSelectedProvince={setSelectedProvince}
+        />
       </div>
 
       <div className={inputBoxStyle}>
