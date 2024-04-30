@@ -20,7 +20,7 @@
     @apply w-full border-b placeholder:text-transparent h-10 outline-none text-sm border border-secondary border-opacity-40 rounded px-4  focus:border-primary duration-200 ease-linear focus:ring-0;
   }
   [type="search"] {
-    @apply bg-transparent w-full outline-none text-dark border-none focus:ring-0 p-0;
+    @apply bg-transparent w-full text-sm outline-none text-dark border-none focus:ring-0 p-0;
   }
   [type="number"] {
     @apply w-full border-b h-10 outline-none text-sm border border-secondary border-opacity-40 rounded px-4 focus:border-primary duration-200 ease-linear focus:ring-0 placeholder:text-right text-left placeholder:opacity-90;

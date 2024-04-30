@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getProfile } from "services/user";
 import { useQuery } from "@tanstack/react-query";
+import { Listbox } from "@headlessui/react";
+import { provinces } from "constants/cities";
 import AuthModal from "components/AuthModal";
 import Search from "components/templates/Search";
 import AdminPageModal from "components/AdminPageModal";
@@ -16,13 +18,20 @@ import {
   buttonsDivStyle,
   dashboardButtonStyle,
   borderStyle,
+  locationContainerStyle,
   locationStyle,
   loginButtonStyle,
   loginButtonActiveStyle,
   logoDivStyle,
   logoStyle,
   navbarStyle,
+  listBoxOptionsStyle,
+  listBoxButtonStyle,
 } from "styles/headerStyle";
+import {
+  listBoxOptionActiveStyle,
+  listBoxOptionStyle,
+} from "styles/addPostStyle";
 
 function Header({ isOpenAdminModal, setIsOpenAdminModal }) {
   const { data } = useQuery(["profile"], getProfile);
@@ -43,13 +52,15 @@ function Header({ isOpenAdminModal, setIsOpenAdminModal }) {
           <Link to="/" className={logoStyle}>
             <DivarIcon />
           </Link>
-          <span className={borderStyle}></span>
-          <span className={locationStyle}>
-            <LocationIcon />
-            <p>تهران</p>
-          </span>
-
-          <Search />
+          <span className={`hidden md:block ${borderStyle}`}></span>
+          <div className={locationContainerStyle}>
+            <Search />
+            <span className={`md:hidden ${borderStyle}`}></span>
+            <div className={locationStyle}>
+              <CitySelection />
+              <LocationIcon />
+            </div>
+          </div>
         </div>
 
         <div className={buttonsDivStyle}>
@@ -90,3 +101,41 @@ function Header({ isOpenAdminModal, setIsOpenAdminModal }) {
 }
 
 export default Header;
+
+function CitySelection() {
+  const [selectedProvince, setSelectedProvince] = useState(provinces[0]);
+  return (
+    <>
+      <Listbox value={selectedProvince} onChange={setSelectedProvince}>
+        <Listbox.Button className={listBoxButtonStyle}>
+          {selectedProvince.name}
+        </Listbox.Button>
+        <Listbox.Options className={listBoxOptionsStyle}>
+          {provinces.map((province, index) => (
+            <div key={province.id}>
+              <Listbox.Option
+                key={province.id}
+                value={province}
+                disabled={province.unavailable}
+                className={({ active }) =>
+                  `${listBoxOptionStyle} ${
+                    active ? listBoxOptionActiveStyle : null
+                  }`
+                }
+              >
+                {({ selected }) => (
+                  <span className={selected ? "text-primary" : ""}>
+                    {province.name}
+                  </span>
+                )}
+              </Listbox.Option>
+              {index !== provinces.length - 1 && (
+                <hr className="border-[#EDEDED]" />
+              )}
+            </div>
+          ))}
+        </Listbox.Options>
+      </Listbox>
+    </>
+  );
+}
