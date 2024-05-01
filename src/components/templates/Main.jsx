@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { useQueryContext } from "hooks/useQueryContext";
 import { useQuery } from "@tanstack/react-query";
 import { getAllPosts } from "services/user";
-import { filterPosts, getInitialQuery, searchPosts } from "utils/helpers";
+import {
+  filterCategoryPosts,
+  filterCityPosts,
+  getInitialQuery,
+  searchPosts,
+} from "utils/helpers";
 import { useSearchParams } from "react-router-dom";
 import { sp } from "utils/numbers";
 import Loader from "components/Loader";
@@ -43,7 +48,8 @@ function Main() {
   useEffect(() => {
     setSearchParams(query);
     let finalPosts = searchPosts(data?.data.posts, query.search);
-    finalPosts = filterPosts(finalPosts, query.category);
+    finalPosts = filterCategoryPosts(finalPosts, query.category);
+    finalPosts = filterCityPosts(finalPosts, query.city);
     setDisplayed(finalPosts);
   }, [query]);
 

@@ -257,11 +257,7 @@ function CitySelection({ selectedProvince, setSelectedProvince }) {
                   }`
                 }
               >
-                {({ selected }) => (
-                  <span className={selected ? "text-primary" : ""}>
-                    {province.name}
-                  </span>
-                )}
+                {province.name}
               </Listbox.Option>
               {index !== provinces.length - 1 && (
                 <hr className="border-[#EDEDED]" />

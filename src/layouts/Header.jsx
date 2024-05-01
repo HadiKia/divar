@@ -4,6 +4,9 @@ import { getProfile } from "services/user";
 import { useQuery } from "@tanstack/react-query";
 import { Listbox } from "@headlessui/react";
 import { provinces } from "constants/cities";
+import { useQueryContext } from "hooks/useQueryContext";
+import { createQueryObject } from "utils/helpers";
+
 import AuthModal from "components/AuthModal";
 import Search from "components/templates/Search";
 import AdminPageModal from "components/AdminPageModal";
@@ -35,6 +38,7 @@ import {
 
 function Header({ isOpenAdminModal, setIsOpenAdminModal }) {
   const { data } = useQuery(["profile"], getProfile);
+
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -104,16 +108,32 @@ export default Header;
 
 function CitySelection() {
   const [selectedProvince, setSelectedProvince] = useState(provinces[0]);
+  const { query, setQuery } = useQueryContext();
+
+  const modifiedCites = [
+    { id: 0, name: "همه استان‌ها", unavailable: false },
+    ...provinces,
+  ];
+
+  const provinceHandler = (event) => {
+    const { tagName } = event.target;
+    if (tagName !== "LI") return;
+
+    const city = event.target.innerText;
+    setQuery((query) => createQueryObject(query, { city }));
+  };
+
   return (
     <>
       <Listbox value={selectedProvince} onChange={setSelectedProvince}>
         <Listbox.Button className={listBoxButtonStyle}>
-          {selectedProvince.name}
+          {query.city || "همه استان‌ها"}
         </Listbox.Button>
         <Listbox.Options className={listBoxOptionsStyle}>
-          {provinces.map((province, index) => (
+          {modifiedCites.map((province, index) => (
             <div key={province.id}>
               <Listbox.Option
+                onClick={provinceHandler}
                 key={province.id}
                 value={province}
                 disabled={province.unavailable}
@@ -123,13 +143,9 @@ function CitySelection() {
                   }`
                 }
               >
-                {({ selected }) => (
-                  <span className={selected ? "text-primary" : ""}>
-                    {province.name}
-                  </span>
-                )}
+                {province.name}
               </Listbox.Option>
-              {index !== provinces.length - 1 && (
+              {index !== modifiedCites.length - 1 && (
                 <hr className="border-[#EDEDED]" />
               )}
             </div>
