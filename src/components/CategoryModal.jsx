@@ -9,7 +9,7 @@ function CategoryModal({
 }) {
   return (
     <Dialog open={isOpenCategory} onClose={() => setIsOpenCategory(false)}>
-      <Dialog.Panel className="fixed inset-0 bottom-[56px] md:hidden bg-white overflow-scroll">
+      <Dialog.Panel className="fixed inset-0 bottom-[56px] md:hidden bg-white overflow-scroll z-20">
         <Sidebar
           isOpenCategory={isOpenCategory}
           closeCategory={closeCategory}

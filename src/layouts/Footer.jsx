@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "services/user";
 import { RadioGroup } from "@headlessui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AuthModal from "components/AuthModal";
 
 import DivarIcon from "assets/icons/DivarIcon";
@@ -27,8 +27,25 @@ import CategoryModal from "components/CategoryModal";
 import AdminPageModal from "components/AdminPageModal";
 
 function Footer({ isOpenAdminModal, setIsOpenAdminModal }) {
-  const url = window.location.href.split("/")[3];
-  let [isActive, setIsActive] = useState(url);
+  const location = useLocation();
+  const homePage = location.pathname === "/";
+  const dashboardPage = location.pathname === "/dashboard";
+  const adminPage = location.pathname === "/admin";
+  let [isActive, setIsActive] = useState("");
+
+  useEffect(() => {
+    switch (location.pathname) {
+      case "":
+        setIsActive("");
+      case "/dashboard":
+        setIsActive("dashboard");
+      case "/admin":
+        setIsActive("dashboard");
+      default:
+        break;
+    }
+  }, []);
+
   const { data } = useQuery(["profile"], getProfile);
   const navigate = useNavigate();
 
@@ -74,7 +91,7 @@ function Footer({ isOpenAdminModal, setIsOpenAdminModal }) {
           <RadioGroup.Option value="">
             {({ checked }) => (
               <span
-                className={checked && url === "" ? activeStyle : InActiveStyle}
+                className={checked && homePage ? activeStyle : InActiveStyle}
                 onClick={() => {
                   navigate("/");
                   setIsOpenAdminModal(false);
@@ -106,7 +123,7 @@ function Footer({ isOpenAdminModal, setIsOpenAdminModal }) {
             {({ checked }) => (
               <span
                 className={
-                  checked && url === "dashboard" ? activeStyle : InActiveStyle
+                  checked && dashboardPage ? activeStyle : InActiveStyle
                 }
                 onClick={() =>
                   data
@@ -123,9 +140,7 @@ function Footer({ isOpenAdminModal, setIsOpenAdminModal }) {
             {({ checked }) => (
               <span
                 className={
-                  checked && url === "dashboard"
-                    ? activeStyle
-                    : url === "admin"
+                  checked && (dashboardPage || adminPage)
                     ? activeStyle
                     : InActiveStyle
                 }

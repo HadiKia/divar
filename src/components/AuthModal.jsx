@@ -7,7 +7,7 @@ function AuthModal({ isOpen, closeModal, setIsActive }) {
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         as="div"
-        className="relative z-10"
+        className="relative z-20"
         onClose={closeModal}
         onClick={() => setIsActive("")}
       >

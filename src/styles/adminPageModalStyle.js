@@ -1,6 +1,6 @@
 const dialogPanelStyle =
-  "fixed top-0 left-0 right-0 bottom-[56px] bg-white md:absolute md:h-fit md:top-11 md:border md:shadow-lg md:rounded z-10";
-const navBarStyle = "p-4 border-b md:hidden";
+  "fixed top-0 left-0 right-0 bottom-[56px] bg-white md:absolute md:h-fit md:top-11 md:border md:shadow-lg md:rounded z-20";
+const navBarStyle = "h-[64px] px-4 shadow md:hidden flex items-center";
 const pStyle = "font-medium text-lg";
 const containerStyle = "p-4 flex flex-col items-start md:py-0 z-40";
 const itemStyle =

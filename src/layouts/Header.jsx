@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getProfile } from "services/user";
 import { useQuery } from "@tanstack/react-query";
 import { Listbox } from "@headlessui/react";
@@ -37,8 +37,11 @@ import {
 } from "styles/addPostStyle";
 
 function Header({ isOpenAdminModal, setIsOpenAdminModal }) {
-  const { data } = useQuery(["profile"], getProfile);
+  const location = useLocation();
+  const dashboardPage = location.pathname === "/dashboard";
+  const adminPage = location.pathname === "/admin";
 
+  const { data } = useQuery(["profile"], getProfile);
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +50,7 @@ function Header({ isOpenAdminModal, setIsOpenAdminModal }) {
   const openModal = () => setIsOpen(true);
 
   return (
-    <header className="shadow sticky top-0 bg-white z-10">
+    <header className="shadow sticky top-0 bg-white z-20">
       <div className={navbarStyle}>
         <div
           className={logoDivStyle}
@@ -56,15 +59,25 @@ function Header({ isOpenAdminModal, setIsOpenAdminModal }) {
           <Link to="/" className={logoStyle}>
             <DivarIcon />
           </Link>
-          <span className={`hidden md:block ${borderStyle}`}></span>
-          <div className={locationContainerStyle}>
-            <Search />
-            <span className={`md:hidden ${borderStyle}`}></span>
-            <div className={locationStyle}>
-              <CitySelection />
-              <LocationIcon />
-            </div>
-          </div>
+          {!dashboardPage && !adminPage && (
+            <>
+              <span className={`hidden md:block ${borderStyle}`}></span>
+              <div className={locationContainerStyle}>
+                <Search />
+                <span className={`md:hidden ${borderStyle}`}></span>
+                <div className={locationStyle}>
+                  <CitySelection />
+                  <LocationIcon />
+                </div>
+              </div>
+            </>
+          )}
+          {(dashboardPage || adminPage) && (
+            <p className="font-medium text-lg md:hidden">
+              {location.pathname === "/dashboard" && "داشبورد"}
+              {location.pathname === "/admin" && "پنل ادمین"}
+            </p>
+          )}
         </div>
 
         <div className={buttonsDivStyle}>
@@ -79,7 +92,11 @@ function Header({ isOpenAdminModal, setIsOpenAdminModal }) {
               }
             >
               <UserIcon />
-              <p>دیوار من</p>
+              <p>
+                {(dashboardPage && "داشبورد") ||
+                  (adminPage && "پنل ادمین") ||
+                  "دیوار من"}
+              </p>
             </span>
           </button>
           <button
