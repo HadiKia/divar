@@ -58,9 +58,10 @@ function Main() {
       <h3 className={h3Style}>دیوار تهران:‌ انواع آگهی‌ها و خدمات در تهران</h3>
       <div className={mainStyle}>
         {!displayed && isLoading && <Loader />}
-        {!displayed?.length && !isLoading && query.search && (
+        {!displayed?.length && !isLoading && query && (
           <NotFound query={query} />
         )}
+
         {displayed?.map((post) => (
           <div key={post._id} className={postBoxStyle}>
             <div className={descriptionStyle}>
@@ -105,7 +106,9 @@ function NotFound({ query }) {
     <div className={notFoundDivStyle}>
       <img src={empty} alt="پیدا نشد" />
       <p className={notFountTitleStyle}>
-        آگهی مرتبط با "{query.search}" پیدا نشد.
+        {query.search
+          ? `آگهی مرتبط با "${query.search}" پیدا نشد.`
+          : "اگهی پیدا نشد."}
       </p>
     </div>
   );
