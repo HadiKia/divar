@@ -1,6 +1,6 @@
 const titleDivStyle =
   "flex items-center justify-between px-4 shadow h-[64px] mb-4 md:hidden";
-const h3Style = "hidden md:block text-sm text-dark py-2.5";
+const h3Style = "hidden md:block text-xs text-dark py-2.5";
 const ulStyle = "flex flex-col text-secondary px-4 md:px-0";
 const liStyle =
   "flex items-center justify-between cursor-pointer duration-300 ease-linear text-sm border-b md:border-none";

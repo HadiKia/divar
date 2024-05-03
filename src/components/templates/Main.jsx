@@ -55,7 +55,11 @@ function Main() {
 
   return (
     <div className="w-full">
-      <h3 className={h3Style}>دیوار تهران:‌ انواع آگهی‌ها و خدمات در تهران</h3>
+      {query.city && (
+        <h3 className={h3Style}>
+          دیوار {query.city}:‌ انواع آگهی‌ها و خدمات در {query.city}
+        </h3>
+      )}
       <div className={mainStyle}>
         {!displayed && isLoading && <Loader />}
         {!displayed?.length && !isLoading && query && (
@@ -67,7 +71,9 @@ function Main() {
             <div className={descriptionStyle}>
               <p className={titleStyle}>{post.options.title}</p>
               <div>
-                <p className={priceStyle}>{sp(post.amount)} تومان</p>
+                {post.category !== "66344014638cf78dff8677d6" && (
+                  <p className={priceStyle}>{sp(post.amount)} تومان</p>
+                )}
                 <div className={cityDivStyle}>
                   <span>
                     {post.options.city ? post.options.city : "مکان نامشخص"}

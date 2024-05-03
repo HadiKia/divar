@@ -26,7 +26,7 @@ import {
   inputFileStyle,
   inputFileNameStyle,
 } from "styles/addPostStyle";
-
+  
 function AddPost() {
   const [form, setForm] = useState({
     title: "",
@@ -91,6 +91,14 @@ function AddPost() {
         toast.success(res.data.message);
         queryClient.invalidateQueries("my-post-list");
         setIsLoading(false);
+        setForm({
+          title: "",
+          content: "",
+          amount: null,
+          city: "",
+          category: "",
+          images: null,
+        });
       })
       .catch(() => {
         toast.error("لطفا فرم را تکمیل کنید");
@@ -120,7 +128,7 @@ function AddPost() {
           type="text"
           name="content"
           id="content"
-          className="peer h-28"
+          className="peer h-52"
           placeholder=""
         />
         <label htmlFor="content" className={labelStyle}>
@@ -203,7 +211,7 @@ function AddPost() {
           name="images"
           id="images"
           className={inputFileStyle}
-          accept="image/png, image/png"
+          accept="image/jpeg, image/png"
         />
         <span className={inputFileNameStyle}>{imageLabel}</span>
         <label htmlFor="images" className={labelStyle}>

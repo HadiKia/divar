@@ -1,8 +1,10 @@
 import CarIcon from "assets/icons/CarIcon";
 import DigitalIcon from "assets/icons/DigitalIcon";
 import FirsLineIcon from "assets/icons/FirsLineIcon";
+import GalleryIcon from "assets/icons/GalleryIcon";
 import GameIcon from "assets/icons/GameIcon";
 import HomeIcon from "assets/icons/HomeIcon";
+import NullIcon from "assets/icons/NullIcon";
 import PersonalIcon from "assets/icons/PersonalIcon";
 import ServiceIcon from "assets/icons/ServiceIcon";
 
@@ -23,7 +25,7 @@ function RenderIcon({ iconName }) {
     case "personal":
       return <PersonalIcon />;
     default:
-      return null;
+      return <GalleryIcon />;
   }
 }
 

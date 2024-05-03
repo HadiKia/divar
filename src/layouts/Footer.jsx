@@ -82,7 +82,7 @@ function Footer({ isOpenAdminModal, setIsOpenAdminModal }) {
         with 🖤
       </p>
 
-      <div className="md:hidden">
+      <div className="md:hidden z-10">
         <RadioGroup
           value={isActive}
           onChange={setIsActive}

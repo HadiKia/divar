@@ -36,7 +36,9 @@ function PostList({ data, mutate }) {
             <div className={descriptionStyle}>
               <p className={titleStyle}>{post.options.title}</p>
               <div>
-                <p className={priceStyle}>{sp(post.amount)} تومان</p>
+                {post.category !== "66344014638cf78dff8677d6" && (
+                  <p className={priceStyle}>{sp(post.amount)} تومان</p>
+                )}
                 <div className={cityDivStyle}>
                   <span>
                     {post.options.city ? post.options.city : "مکان نامشخص"}

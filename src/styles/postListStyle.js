@@ -1,4 +1,4 @@
-const h3Style = "hidden md:block text-sm text-secondary mb-5 text-left";
+const h3Style = "hidden md:block text-xs text-secondary mb-5 text-left";
 const mainStyle = "grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4";
 const postBoxStyle =
   "h-[168px] flex justify-between gap-x-2 border rounded-md p-4";

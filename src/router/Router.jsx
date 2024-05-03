@@ -22,7 +22,6 @@ function Router() {
       />
       <Route
         path="/admin"
-        // admin number => 09189990099
         element={
           data && data.data.role === "ADMIN" ? (
             <AdminPage />
