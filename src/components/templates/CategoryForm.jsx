@@ -22,6 +22,7 @@ function CategoryForm() {
     onSuccess: () => {
       queryClient.invalidateQueries("get-categories");
       toast.success("دسته بندی با موفقیت افزوده شد");
+      setForm({ name: "", slug: "", icon: "" });
     },
   });
 
@@ -38,15 +39,13 @@ function CategoryForm() {
   };
 
   return (
-    <form
-      onChange={changeHandler}
-      onSubmit={submitHandler}
-      className={formStyle}
-    >
+    <form onSubmit={submitHandler} className={formStyle}>
       <h3 className={h3Style}>دسته بندی جدید</h3>
 
       <div className={inputBoxStyle}>
         <input
+          value={form.name}
+          onChange={changeHandler}
           type="text"
           name="name"
           id="name"
@@ -60,6 +59,8 @@ function CategoryForm() {
 
       <div className={inputBoxStyle}>
         <input
+          value={form.slug}
+          onChange={changeHandler}
           type="text"
           name="slug"
           id="slug"
@@ -73,6 +74,8 @@ function CategoryForm() {
 
       <div className={inputBoxStyle}>
         <input
+          value={form.icon}
+          onChange={changeHandler}
           type="text"
           name="icon"
           id="icon"

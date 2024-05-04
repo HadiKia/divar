@@ -26,16 +26,16 @@ import {
   inputFileStyle,
   inputFileNameStyle,
 } from "styles/addPostStyle";
-  
+
 function AddPost() {
   const [form, setForm] = useState({
     title: "",
     content: "",
-    amount: null,
+    amount: "",
     city: "",
     category: "",
-    images: null,
   });
+  const [image, setImage] = useState(null);
   const { data } = useQuery(["get-categories"], getCategory);
   const [category, setCategory] = useState("");
   const [imageLabel, setImageLabel] = useState("عکس خود را بارگزاری کنید");
@@ -45,7 +45,7 @@ function AddPost() {
 
   useEffect(() => {
     if (data) setCategory(data.data[0]);
-  }, []);
+  }, [data]);
 
   const changeHandler = (event) => {
     const name = event.target.name;
@@ -54,11 +54,24 @@ function AddPost() {
     } else {
       const file = event.target.files[0];
       if (file) {
-        setForm({ ...form, [name]: file });
+        setImage(file);
         setImageLabel(file.name);
       }
     }
   };
+
+  const resetForm = () => {
+    setForm({
+      title: "",
+      content: "",
+      amount: "",
+      city: "",
+      category: "",
+    });
+    setImage(null);
+    setImageLabel("عکس خود را بارگزاری کنید");
+  };
+
   const addHandler = (event) => {
     event.preventDefault();
 
@@ -68,6 +81,7 @@ function AddPost() {
     }
     formData.set("category", category._id);
     formData.set("city", selectedProvince.name);
+    if (image) formData.append("images", image);
 
     const token = getCookie("accessToken");
     if (
@@ -91,14 +105,7 @@ function AddPost() {
         toast.success(res.data.message);
         queryClient.invalidateQueries("my-post-list");
         setIsLoading(false);
-        setForm({
-          title: "",
-          content: "",
-          amount: null,
-          city: "",
-          category: "",
-          images: null,
-        });
+        resetForm();
       })
       .catch(() => {
         toast.error("لطفا فرم را تکمیل کنید");
@@ -107,11 +114,13 @@ function AddPost() {
   };
 
   return (
-    <form onChange={changeHandler} className="flex-1 md:max-w-xs">
+    <form className="flex-1 md:max-w-xs">
       <h3 className={h3Style}>افزودن آگهی</h3>
 
       <div className={inputBoxStyle}>
         <input
+          value={form.title}
+          onChange={changeHandler}
           type="text"
           name="title"
           id="title"
@@ -125,6 +134,8 @@ function AddPost() {
 
       <div className={inputBoxStyle}>
         <textarea
+          value={form.content}
+          onChange={changeHandler}
           type="text"
           name="content"
           id="content"
@@ -138,6 +149,8 @@ function AddPost() {
 
       <div className={inputBoxStyle}>
         <input
+          value={form.amount}
+          onChange={changeHandler}
           type="number"
           name="amount"
           id="amount"
@@ -207,6 +220,9 @@ function AddPost() {
 
       <div className={inputFileBoxStyle}>
         <input
+          key={form.images}
+          value={form.images}
+          onChange={changeHandler}
           type="file"
           name="images"
           id="images"

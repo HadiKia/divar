@@ -4,7 +4,6 @@ import FirsLineIcon from "assets/icons/FirsLineIcon";
 import GalleryIcon from "assets/icons/GalleryIcon";
 import GameIcon from "assets/icons/GameIcon";
 import HomeIcon from "assets/icons/HomeIcon";
-import NullIcon from "assets/icons/NullIcon";
 import PersonalIcon from "assets/icons/PersonalIcon";
 import ServiceIcon from "assets/icons/ServiceIcon";
 
