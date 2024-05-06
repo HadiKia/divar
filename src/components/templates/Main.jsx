@@ -8,7 +8,7 @@ import {
   getInitialQuery,
   searchPosts,
 } from "utils/helpers";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { sp } from "utils/numbers";
 import Loader from "components/Loader";
 import empty from "assets/images/empty-page.svg";
@@ -67,38 +67,40 @@ function Main() {
         )}
 
         {displayed?.map((post) => (
-          <div key={post._id} className={postBoxStyle}>
-            <div className={descriptionStyle}>
-              <p className={titleStyle}>{post.options.title}</p>
-              <div>
-                {post.category !== "66344014638cf78dff8677d6" && (
-                  <p className={priceStyle}>{sp(post.amount)} تومان</p>
-                )}
-                <div className={cityDivStyle}>
-                  <span>
-                    {post.options.city ? post.options.city : "مکان نامشخص"}
-                  </span>
-                  -
-                  <span className={createdAtStyle}>
-                    {new Date(post.createdAt).toLocaleDateString("fa-IR")}
-                  </span>
+          <Link key={post._id} to={`/${post._id}`}>
+            <div className={postBoxStyle}>
+              <div className={descriptionStyle}>
+                <p className={titleStyle}>{post.options.title}</p>
+                <div>
+                  {post.category !== "66344014638cf78dff8677d6" && (
+                    <p className={priceStyle}>{sp(post.amount)} تومان</p>
+                  )}
+                  <div className={cityDivStyle}>
+                    <span>
+                      {post.options.city ? post.options.city : "مکان نامشخص"}
+                    </span>
+                    -
+                    <span className={createdAtStyle}>
+                      {new Date(post.createdAt).toLocaleDateString("fa-IR")}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className={imageBoxStyle}>
-              {post.images.length ? (
-                <img
-                  src={`${baseURL}${post.images[0]}`}
-                  className={imageStyle}
-                />
-              ) : (
-                <span className={blankImageStyle}>
-                  <GalleryIcon />
-                </span>
-              )}
+              <div className={imageBoxStyle}>
+                {post.images.length ? (
+                  <img
+                    src={`${baseURL}${post.images[0]}`}
+                    className={imageStyle}
+                  />
+                ) : (
+                  <span className={blankImageStyle}>
+                    <GalleryIcon />
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

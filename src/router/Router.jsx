@@ -7,6 +7,7 @@ import DashboardPage from "pages/DashboardPage";
 import AdminPage from "pages/AdminPage";
 import PageNotFound from "pages/404";
 import Loader from "components/Loader";
+import DetailsPage from "pages/DetailsPage";
 
 function Router() {
   const { data, isLoading } = useQuery(["profile"], getProfile);
@@ -16,6 +17,7 @@ function Router() {
   return (
     <Routes>
       <Route index element={<HomePage />} />
+      <Route path="/:id" element={<DetailsPage />} />
       <Route
         path="/dashboard"
         element={data ? <DashboardPage /> : <Navigate to="/" />}
