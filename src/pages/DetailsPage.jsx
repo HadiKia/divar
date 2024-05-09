@@ -1,11 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getPost } from "services/user";
 import { getCategory } from "services/admin";
+import { sp } from "utils/numbers";
 
 import Loader from "components/Loader";
 import GalleryIcon from "assets/icons/GalleryIcon";
-import { sp } from "utils/numbers";
+import ArrowLeft from "assets/icons/ArrowLeft";
+
+// styles
+import {
+  containerStyle,
+  breadcrumbsStyle,
+  mainStyle,
+  imageDivStyle,
+  imageStyle,
+  blankImageStyle,
+  categoryStyle,
+  titleStyle,
+  cityStyle,
+  buttonStyle,
+  aStyle,
+  priceStyle,
+  updatedAtStyle,
+  descriptionStyle,
+  contentStyle,
+} from "styles/detailsPageStyle";
 
 function DetailsPage() {
   const baseURL = import.meta.env.VITE_BASE_URL;
@@ -25,54 +45,61 @@ function DetailsPage() {
   } = data.data.post;
 
   return (
-    <div className="container mx-auto max-w-screen-lg md:px-4 md:pt-20">
-      <div className="pb-28 flex flex-col md:flex-row-reverse md:items-start md:justify-between md:gap-x-10">
-        <div className="md:flex-1 md:flex md:justify-end ">
+    <div className={containerStyle}>
+      <div className={breadcrumbsStyle}>
+        <Link to={`/?city=${options.city}`} className="py-2">
+          {options.city}
+        </Link>
+        <ArrowLeft />
+        <Link to={`/?category=${category}`} className="py-2">
+          <RenderCategory categoryName={category} />
+        </Link>
+        <ArrowLeft />
+        <span className="opacity-70">{options.title}</span>
+      </div>
+
+      <div className={mainStyle}>
+        <div className={imageDivStyle}>
           {images.length ? (
-            <img
-              src={`${baseURL}${images}`}
-              className="w-full max-h-[340px] md:max-w-[400px] md:max-h-[380px] md:rounded"
-            />
+            <img src={`${baseURL}${images}`} className={imageStyle} />
           ) : (
-            <span className="w-full grid place-items-center bg-[#EBEBEB] text-secondary h-[340px] md:max-w-[400px] md:h-[380px] md:rounded">
+            <span className={blankImageStyle}>
               <GalleryIcon />
             </span>
           )}
         </div>
 
         <div className="px-4 md:px-0 md:flex-1">
-          <RenderCategory categoryName={category} />
-          <h2 className="text-dark text-xl font-medium mb-2.5">
-            {options.title}
-          </h2>
-          <div className="flex items-center justify-between text-sm text-secondary mb-7">
+          <div className={categoryStyle}>
+            دسته بندی :
+            <Link to={`/?category=${category}`}>
+              <RenderCategory categoryName={category} />
+            </Link>
+          </div>
+          <h2 className={titleStyle}>{options.title}</h2>
+          <div className={cityStyle}>
             <span>{options.city}</span>
             <span> {new Date(createdAt).toLocaleDateString("fa-IR")}</span>
           </div>
-          <div className="flex flex-col-reverse">
-            <div>
-              {category !== "66344014638cf78dff8677d6" && (
-                <div className="flex items-center justify-between text-dark py-3 border-t">
-                  <span className="text-secondary">قیمت</span>
-                  <span>{sp(amount)} تومان</span>
-                </div>
-              )}
-
-              <div className="flex items-center justify-between text-dark py-3 mb-6 border-y">
-                <span className="text-secondary">آخرین به‌روزرسانی آگهی</span>
-                <span>{new Date(updatedAt).toLocaleDateString("fa-IR")}</span>
+          <button className={buttonStyle}>
+            <a href={`tel:${userMobile}`} className={aStyle}>
+              اطلاعات تماس
+            </a>
+          </button>
+          <div>
+            {category !== "66344014638cf78dff8677d6" && (
+              <div className={priceStyle}>
+                <span className="text-secondary">قیمت</span>
+                <span>{sp(amount)} تومان</span>
               </div>
-              <h3 className="text-dark text-lg font-medium mb-1.5">توضیحات</h3>
-              <p className="text-dark text-sm leading-7">{options.content}</p>
+            )}
+
+            <div className={updatedAtStyle}>
+              <span className="text-secondary">آخرین به‌روزرسانی آگهی</span>
+              <span>{new Date(updatedAt).toLocaleDateString("fa-IR")}</span>
             </div>
-            <button className="fixed left-0 right-0 bottom-0 h-[64px] border-t z-20 bg-white px-4 py-3 md:relative md:border-t-0 md:w-full md:px-0 md:mb-5">
-              <a
-                href={`tel:${userMobile}`}
-                className="h-full flex items-center justify-center rounded bg-primary text-white font-medium"
-              >
-                اطلاعات تماس
-              </a>
-            </button>
+            <h3 className={descriptionStyle}>توضیحات</h3>
+            <p className={contentStyle}>{options.content}</p>
           </div>
         </div>
       </div>
@@ -86,9 +113,5 @@ function RenderCategory({ categoryName }) {
   const { data } = useQuery(["get-categories"], getCategory);
   const categoryData = data?.data.find((cat) => cat._id === categoryName);
 
-  return (
-    <div className="py-6 text-xs text-secondary md:hidden">
-      دسته بندی : {categoryData?.name}
-    </div>
-  );
+  return categoryData?.name;
 }
