@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { getPost } from "services/user";
@@ -7,6 +8,7 @@ import { sp } from "utils/numbers";
 import Loader from "components/Loader";
 import GalleryIcon from "assets/icons/GalleryIcon";
 import ArrowLeft from "assets/icons/ArrowLeft";
+import ArrowRight from "assets/icons/ArrowRight";
 
 // styles
 import {
@@ -30,9 +32,14 @@ import {
 function DetailsPage() {
   const baseURL = import.meta.env.VITE_BASE_URL;
   const { id } = useParams();
-  const { data, isLoading } = useQuery(["post"], () => getPost(id));
 
-  if (isLoading) return <Loader />;
+  const { data, refetch, isFetching } = useQuery(["post"], () => getPost(id));
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  if (isFetching) return <Loader />;
 
   const {
     amount,
@@ -47,6 +54,10 @@ function DetailsPage() {
   return (
     <div className={containerStyle}>
       <div className={breadcrumbsStyle}>
+        <Link to="/" className="py-2">
+          صفحه اصلی
+        </Link>
+        <ArrowLeft />
         <Link to={`/?city=${options.city}`} className="py-2">
           {options.city}
         </Link>
@@ -71,7 +82,7 @@ function DetailsPage() {
 
         <div className="px-4 md:px-0 md:flex-1">
           <div className={categoryStyle}>
-            دسته بندی :
+            <ArrowRight />
             <Link to={`/?category=${category}`}>
               <RenderCategory categoryName={category} />
             </Link>

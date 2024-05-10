@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { sp } from "utils/numbers";
 import empty from "assets/images/empty-page.svg";
 import GalleryIcon from "assets/icons/GalleryIcon";
@@ -32,41 +33,43 @@ function PostList({ data, mutate }) {
       <h3 className={h3Style}>آگهی های شما</h3>
       <div className={mainStyle}>
         {data.data.posts.map((post) => (
-          <div key={post._id} className={postBoxStyle}>
-            <div className={descriptionStyle}>
-              <p className={titleStyle}>{post.options.title}</p>
-              <div>
-                {post.category !== "66344014638cf78dff8677d6" && (
-                  <p className={priceStyle}>{sp(post.amount)} تومان</p>
-                )}
-                <div className={cityDivStyle}>
-                  <span>
-                    {post.options.city ? post.options.city : "مکان نامشخص"}
-                  </span>
-                  -
-                  <span className={createdAtStyle}>
-                    {new Date(post.createdAt).toLocaleDateString("fa-IR")}
-                  </span>
+          <Link key={post._id} to={`/details-page/${post._id}`}>
+            <div key={post._id} className={postBoxStyle}>
+              <div className={descriptionStyle}>
+                <p className={titleStyle}>{post.options.title}</p>
+                <div>
+                  {post.category !== "66344014638cf78dff8677d6" && (
+                    <p className={priceStyle}>{sp(post.amount)} تومان</p>
+                  )}
+                  <div className={cityDivStyle}>
+                    <span>
+                      {post.options.city ? post.options.city : "مکان نامشخص"}
+                    </span>
+                    -
+                    <span className={createdAtStyle}>
+                      {new Date(post.createdAt).toLocaleDateString("fa-IR")}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className={imageBoxStyle}>
-              <button onClick={() => handleDelete(post._id)}>
-                <TrashIcon />
-              </button>
-              {post.images.length ? (
-                <img
-                  src={`${baseURL}${post.images[0]}`}
-                  className={imageStyle}
-                />
-              ) : (
-                <span className={blankImageStyle}>
-                  <GalleryIcon />
-                </span>
-              )}
+              <div className={imageBoxStyle}>
+                <button onClick={() => handleDelete(post._id)}>
+                  <TrashIcon />
+                </button>
+                {post.images.length ? (
+                  <img
+                    src={`${baseURL}${post.images[0]}`}
+                    className={imageStyle}
+                  />
+                ) : (
+                  <span className={blankImageStyle}>
+                    <GalleryIcon />
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
 
         {!data.data.posts.length && (

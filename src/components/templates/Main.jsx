@@ -67,7 +67,7 @@ function Main() {
         )}
 
         {displayed?.map((post) => (
-          <Link key={post._id} to={`/${post._id}`}>
+          <Link key={post._id} to={`/details-page/${post._id}`}>
             <div className={postBoxStyle}>
               <div className={descriptionStyle}>
                 <p className={titleStyle}>{post.options.title}</p>

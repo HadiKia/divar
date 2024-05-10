@@ -8,7 +8,7 @@ const imageStyle =
   "w-full max-h-[340px] md:max-w-[400px] md:max-h-[380px] md:rounded";
 const blankImageStyle =
   "w-full grid place-items-center bg-[#EBEBEB] text-secondary h-[340px] md:max-w-[400px] md:h-[380px] md:rounded";
-const categoryStyle = "py-6 text-xs text-secondary md:hidden";
+const categoryStyle = "py-6 text-xs text-secondary flex items-center md:hidden -mr-2";
 const titleStyle = "text-dark text-2xl font-medium mb-2.5 md:mb-3";
 const cityStyle =
   "flex items-center justify-between text-sm text-secondary mb-7 md:text-base";

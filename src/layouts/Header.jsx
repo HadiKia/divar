@@ -15,6 +15,7 @@ import AdminPageModal from "components/AdminPageModal";
 import DivarIcon from "assets/icons/DivarIcon";
 import LocationIcon from "assets/icons/LocationIcon";
 import UserIcon from "assets/icons/UserIcon";
+import ArrowRight2 from "assets/icons/ArrowRight2";
 
 // styles
 import {
@@ -40,10 +41,9 @@ function Header({ isOpenAdminModal, setIsOpenAdminModal }) {
   const location = useLocation();
   const dashboardPage = location.pathname === "/dashboard";
   const adminPage = location.pathname === "/admin";
-
-  const { data } = useQuery(["profile"], getProfile);
+  const detailsPage = location.pathname.split("/")[1];
   const navigate = useNavigate();
-
+  const { data } = useQuery(["profile"], getProfile);
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => setIsOpen(false);
@@ -59,7 +59,7 @@ function Header({ isOpenAdminModal, setIsOpenAdminModal }) {
           <Link to="/" className={logoStyle}>
             <DivarIcon />
           </Link>
-          {!dashboardPage && !adminPage && (
+          {!dashboardPage && !adminPage && !detailsPage && (
             <>
               <span className={`hidden md:block ${borderStyle}`}></span>
               <div className={locationContainerStyle}>
@@ -77,6 +77,15 @@ function Header({ isOpenAdminModal, setIsOpenAdminModal }) {
               {location.pathname === "/dashboard" && "داشبورد"}
               {location.pathname === "/admin" && "پنل ادمین"}
             </p>
+          )}
+          {!dashboardPage && !adminPage && detailsPage && (
+            <Link
+              to="/"
+              className="flex items-center gap-x-2.5 font-medium text-lg md:hidden "
+            >
+              <ArrowRight2 />
+              <p>جزئیات آگهی</p>
+            </Link>
           )}
         </div>
 

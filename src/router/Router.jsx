@@ -17,7 +17,7 @@ function Router() {
   return (
     <Routes>
       <Route index element={<HomePage />} />
-      <Route path="/:id" element={<DetailsPage />} />
+      <Route path="/details-page/:id" element={<DetailsPage />} />
       <Route
         path="/dashboard"
         element={data ? <DashboardPage /> : <Navigate to="/" />}
