@@ -33,30 +33,33 @@ function PostList({ data, mutate }) {
       <h3 className={h3Style}>آگهی های شما</h3>
       <div className={mainStyle}>
         {data.data.posts.map((post) => (
-          <Link key={post._id} to={`/details-page/${post._id}`}>
-            <div key={post._id} className={postBoxStyle}>
-              <div className={descriptionStyle}>
+          <div key={post._id} className={postBoxStyle}>
+            <div className={descriptionStyle}>
+              <Link to={`/details-page/${post._id}`}>
                 <p className={titleStyle}>{post.options.title}</p>
-                <div>
-                  {post.category !== "66344014638cf78dff8677d6" && (
-                    <p className={priceStyle}>{sp(post.amount)} تومان</p>
-                  )}
-                  <div className={cityDivStyle}>
-                    <span>
-                      {post.options.city ? post.options.city : "مکان نامشخص"}
-                    </span>
-                    -
-                    <span className={createdAtStyle}>
-                      {new Date(post.createdAt).toLocaleDateString("fa-IR")}
-                    </span>
-                  </div>
+              </Link>
+              <div>
+                {post.category !== "66344014638cf78dff8677d6" && (
+                  <p className={priceStyle}>{sp(post.amount)} تومان</p>
+                )}
+                <div className={cityDivStyle}>
+                  <span>
+                    {post.options.city ? post.options.city : "مکان نامشخص"}
+                  </span>
+                  -
+                  <span className={createdAtStyle}>
+                    {new Date(post.createdAt).toLocaleDateString("fa-IR")}
+                  </span>
                 </div>
               </div>
+            </div>
 
-              <div className={imageBoxStyle}>
-                <button onClick={() => handleDelete(post._id)}>
-                  <TrashIcon />
-                </button>
+            <div className={imageBoxStyle}>
+              <button onClick={() => handleDelete(post._id)}>
+                <TrashIcon />
+              </button>
+
+              <Link to={`/details-page/${post._id}`}>
                 {post.images.length ? (
                   <img
                     src={`${baseURL}${post.images[0]}`}
@@ -67,9 +70,9 @@ function PostList({ data, mutate }) {
                     <GalleryIcon />
                   </span>
                 )}
-              </div>
+              </Link>
             </div>
-          </Link>
+          </div>
         ))}
 
         {!data.data.posts.length && (

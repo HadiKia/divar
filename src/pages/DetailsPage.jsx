@@ -89,7 +89,7 @@ function DetailsPage() {
           </div>
           <h2 className={titleStyle}>{options.title}</h2>
           <div className={cityStyle}>
-            <span>{options.city}</span>
+            <Link to={`/?city=${options.city}`}>{options.city}</Link>
             <span> {new Date(createdAt).toLocaleDateString("fa-IR")}</span>
           </div>
           <button className={buttonStyle}>
