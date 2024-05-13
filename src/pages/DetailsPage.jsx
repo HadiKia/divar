@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { getPost } from "services/user";
 import { getCategory } from "services/admin";
 import { sp } from "utils/numbers";
+import { useTitle } from "hooks/useTitle";
 
 import Loader from "components/Loader";
 import GalleryIcon from "assets/icons/GalleryIcon";
@@ -31,6 +32,8 @@ import {
 
 function DetailsPage() {
   const baseURL = import.meta.env.VITE_BASE_URL;
+  useTitle("جزئیات آگهی");
+
   const { id } = useParams();
 
   const { data, refetch, isFetching } = useQuery(["post"], () => getPost(id));

@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategory, deleteCategory } from "services/admin";
+import { useTitle } from "hooks/useTitle";
 import toast from "react-hot-toast";
 
 import CategoryForm from "components/templates/CategoryForm";
@@ -9,6 +10,7 @@ import Loader from "components/Loader";
 import { containerStyle } from "styles/adminPageStyle";
 
 function AdminPage() {
+  useTitle("پنل ادمین");
   const queryClient = useQueryClient();
   const { data, isLoading: getCategoryLoading } = useQuery(
     ["get-categories"],
@@ -27,7 +29,6 @@ function AdminPage() {
   });
 
   if (getCategoryLoading || deleteCategoryLoading) return <Loader />;
-
 
   return (
     <div className={containerStyle}>

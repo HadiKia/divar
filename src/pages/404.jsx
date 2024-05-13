@@ -1,7 +1,9 @@
-import notFoundImage from "assets/images/404.png";
+import { useTitle } from "hooks/useTitle";
 import { Link } from "react-router-dom";
+import notFoundImage from "assets/images/404.png";
 
 function PageNotFound() {
+  useTitle("صفحه پیدا نشد");
   return (
     <div className="container max-w-[1440px] mx-auto px-4 text-secondary flex flex-col items-center text-center md:min-h-[calc(100vh_-_110px)]">
       <img src={notFoundImage} alt="پیدا نشد" className="w-[180px] mb-12" />
