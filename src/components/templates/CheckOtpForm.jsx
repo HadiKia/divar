@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { checkOtp } from "services/auth";
 import { getProfile } from "services/user";
 import { setCookie } from "utils/cookie";
+import { e2p } from "utils/numbers";
 import toast from "react-hot-toast";
+import ReactLoading from "react-loading";
 
 import CloseIcon from "assets/icons/CloseIcon";
 
@@ -26,12 +29,14 @@ function CheckOtpForm({
   closeModal,
   setIsActive,
 }) {
+  const [isLoading, setIsLoading] = useState(false);
   const { refetch } = useQuery(["profile"], getProfile);
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    if (code.length !== 5) return;
-
+    if (code.length !== 5)
+      return toast.error("لطفا کد ۵ رقمی خود را وارد کنید");
+    setIsLoading(true);
     const { response, error } = await checkOtp(mobile, code);
 
     if (response) {
@@ -40,6 +45,7 @@ function CheckOtpForm({
       refetch();
       closeModal();
       setIsActive("");
+      setIsLoading(false);
     }
     if (error) toast.error("مشکلی پیش آمده است");
   };
@@ -62,12 +68,12 @@ function CheckOtpForm({
       <p className={authTitleStyle}>کد تأیید را وارد کنید</p>
 
       <p className={authContentMessageStyle}>
-        کد پیامک شده به شمارهٔ «{mobile}» را وارد کنید.
+        کد پیامک شده به شمارهٔ «{e2p(mobile)}» را وارد کنید.
       </p>
       <div className="mx-4 md:mx-8">
         <input
           type="number"
-          placeholder="کد تأیید ۶ رقمی"
+          placeholder="کد تأیید ۵ رقمی"
           value={code}
           autoFocus
           onChange={(e) => setCode(e.target.value)}
@@ -83,7 +89,17 @@ function CheckOtpForm({
 
       <div className={modalActionDivStyle}>
         <button type="submit" className={submitButtonStyle}>
-          ورود
+          {isLoading ? (
+            <ReactLoading
+              type="bubbles"
+              color="#fff"
+              height={20}
+              width={25}
+              className="mb-1.5"
+            />
+          ) : (
+            "ورود"
+          )}
         </button>
       </div>
     </form>

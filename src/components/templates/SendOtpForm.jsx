@@ -24,7 +24,8 @@ function SendOtpForm({ setStep, mobile, setMobile, closeModal, setIsActive }) {
   const submitHandler = async (event) => {
     event.preventDefault();
 
-    if (mobile.length !== 11) return;
+    if (mobile.length !== 10 && mobile.length !== 11)
+      return toast.error("لطفا شماره موبایل صحیح وارد کنید");
     setIsLoading(true);
     const { response, error } = await sendOtp(mobile);
 
