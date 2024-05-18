@@ -34,7 +34,7 @@ function AuthModal({ isOpen, closeModal, setIsActive }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full transform overflow-hidden md:rounded bg-white transition-all md:max-w-[488px]">
+              <Dialog.Panel className="w-full absolute inset-0 md:relative transform overflow-hidden md:rounded bg-white transition-all md:max-w-[488px]">
                 <AuthPage closeModal={closeModal} setIsActive={setIsActive} />
               </Dialog.Panel>
             </Transition.Child>

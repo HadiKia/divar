@@ -35,7 +35,7 @@ function SendOtpForm({ setStep, mobile, setMobile, closeModal, setIsActive }) {
   };
 
   return (
-    <form onSubmit={submitHandler} className="h-screen md:h-[458px]">
+    <form onSubmit={submitHandler} className="md:h-[458px]">
       <div className={titleDivStyle}>
         <p className={modalTitleStyle}>ورود به حساب کاربری</p>
         <span

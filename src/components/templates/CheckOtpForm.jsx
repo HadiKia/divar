@@ -51,7 +51,7 @@ function CheckOtpForm({
   };
 
   return (
-    <form onSubmit={submitHandler} className="h-screen md:h-[408px]">
+    <form onSubmit={submitHandler} className="md:h-[408px]">
       <div className={titleDivStyle}>
         <p className={modalTitleStyle}>ورود به حساب کاربری</p>
         <span
