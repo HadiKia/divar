@@ -1,34 +1,22 @@
-# Divar project!
-
----
+<div align="center">
+  <img src="screenshot.png" style="border-radius:20px">
+</div>
 
 ## Attention!
 - Please clone <a target="_blank" href="https://github.com/HadiKia/divar-api">this repository</a> and run the command **npm start** before executing the project to connect to the backend and view the otp code in the backend project terminal.
 
 ---
 
-<div align="center">
-  <img src="screenshot.png" style="border-radius:20px">
-</div>
-
----
-
-# A shopping cart!
+# Divar project!
 
 ## [review online](https://divar-app.netlify.app/)
-
----
-
-## Tips
-
-- Fully responsive for mobile, tablet, laptop and desktop
 
 ---
 
 ## Features
 
 - Authentication & Authorization
-- Admin & User panel
+- Admin & User panel (admin mobile: 09102223322)
 - Add & remove category (admin rule)
 - Add & remove post
 - Search posts
@@ -36,6 +24,12 @@
 - Post details page
 - SPA app
 - Login / Logout
+
+---
+
+## Tips
+
+- Fully responsive for mobile, tablet, laptop and desktop
 
 ---
 
