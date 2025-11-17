@@ -10,7 +10,7 @@ const authContentMessage2Style = "text-sm text-secondary px-4 md:px-8";
 const modalActionDivStyle =
   "absolute bottom-0 left-0 right-0 py-3 border-t flex justify-center md:justify-end";
 const submitButtonStyle =
-  "w-full md:w-24 pt-0.5 flex items-center justify-center mx-4 rounded h-10 bg-primary hover:bg-[#be3737] duration-300 text-white font-medium text-[17px]";
+  "w-full md:w-24 pt-0.5 flex items-center justify-center mx-4 rounded h-10 bg-primary hover:bg-[#be3737] duration-300 text-white disabled:bg-[#be373795] font-medium text-[17px]";
 const changeNumberDivButtonStyle = "flex justify-end px-4 md:px-8";
 const changeNumberButtonStyle =
   "text-xs text-secondary bg-[#f5f5f5] py-1.5 px-3 rounded-full";

@@ -58,6 +58,7 @@ function SendOtpForm({ setStep, mobile, setMobile, closeModal, setIsActive }) {
 
       <div className={inputBoxStyle}>
         <input
+        dir="ltr"
           type="number"
           placeholder="شمارهٔ موبایل"
           value={mobile}

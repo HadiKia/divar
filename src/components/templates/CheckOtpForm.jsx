@@ -37,7 +37,7 @@ function CheckOtpForm({
     if (code.length !== 5)
       return toast.error("لطفا کد ۵ رقمی خود را وارد کنید");
     setIsLoading(true);
-    const { response, error } = await checkOtp(mobile, code);
+    const { response } = await checkOtp(mobile, code);
 
     if (response) {
       toast.success("خوش آمدید");
@@ -46,8 +46,10 @@ function CheckOtpForm({
       closeModal();
       setIsActive("");
       setIsLoading(false);
+    } else {
+      toast.error("مشکلی پیش آمده است");
+      setIsLoading(false);
     }
-    if (error) toast.error("مشکلی پیش آمده است");
   };
 
   return (
@@ -72,6 +74,7 @@ function CheckOtpForm({
       </p>
       <div className="mx-4 md:mx-8">
         <input
+          dir="ltr"
           type="number"
           placeholder="کد تأیید ۵ رقمی"
           value={code}
@@ -82,13 +85,17 @@ function CheckOtpForm({
       </div>
 
       <div className={changeNumberDivButtonStyle}>
-        <button onClick={() => setStep(1)} className={changeNumberButtonStyle}>
+        <span onClick={() => setStep(1)} className={changeNumberButtonStyle}>
           تغییر شمارهٔ موبایل
-        </button>
+        </span>
       </div>
 
       <div className={modalActionDivStyle}>
-        <button type="submit" className={submitButtonStyle}>
+        <button
+          type="submit"
+          className={submitButtonStyle}
+          disabled={isLoading}
+        >
           {isLoading ? (
             <ReactLoading
               type="bubbles"
